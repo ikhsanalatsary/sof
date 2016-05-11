@@ -1,0 +1,25 @@
+<template name="addPost">
+  <div class="ww">
+    <div class="container pt">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-3">
+          <div class="title">
+            <h2>Create Post</h2>
+          </div>
+          <form class="add-form">
+            <div class="form-group">
+              <label for="Title">Title</label>
+              <input type="text" class="form-control" placeholder="Type Title">
+            </div>
+            <div class="form-group">
+              <label for="Posts">Posts</label>
+              <textarea class="form-control" rows="3" name="body" placeholder="Posts"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">SAVE</button>
+            <a href="/admin/posts" class="btn btn-default">CANCEL</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -3,10 +3,11 @@
 </body>
 
 <template name="layout">
-  {{> navbar}}
+  <!-- {{> navbar}} -->
+  {{> yield "navbar"}}
   <div class="wrapper">
     {{> yield}}
-    {{> footer}}
+    {{> yield "footer"}}
   </div>
 
 </template>

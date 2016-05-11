@@ -76,6 +76,9 @@ a:active {
 .nav > li > a:focus {
   background: transparent;
 }
+.ww {
+  padding: 130px;
+}
 .title {
   text-align: center;
   padding-bottom: 70px;
@@ -113,6 +116,7 @@ a:active {
   font-weight: 300;
   color: #817C7C;
 }
+
 #mixed-items .mix {
   display: none;
 }
