@@ -32,6 +32,9 @@
         <li><a href="#blog">Blog</a></li>
         <li><a href="#testimonial">Testimonial</a></li>
         <li><a href="#contact-form">Contact</a></li>
+        {{#if currentUser}}
+          <li><a href="#" class="logout">Logout</a></li>
+        {{/if}}
       </ul>
     </nav>
   <!-- /main nav -->

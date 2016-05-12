@@ -48,3 +48,8 @@ Router.route('/admin/projects/:id/edit', {
   name: 'edit-project',
   template: 'editProject'
 });
+
+Router.route('/admin', {
+  name: 'login',
+  template: 'login'
+})
