@@ -33,3 +33,6 @@ mrt:jquery-waypoints2
 jacklam:meteor-wowjs
 pagebakers:ionicons
 mrt:flash-messages
+aldeed:collection2
+momentjs:moment
+teamon:tinymce

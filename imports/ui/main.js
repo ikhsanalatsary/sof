@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
-// import { FlashMessages } from 'mrt:flash-messages';
+import { FlashMessages } from 'meteor/mrt:flash-messages';
 
 import './layout.html';
 import './navbar.html';
@@ -17,6 +17,10 @@ Template.body.onRendered(function() {
 });
 
 Template.layout.onRendered(function() {
+  tinymce.init({
+    selector: 'textarea',
+    skin_url: '/packages/teamon_tinymce/skins/lightgray',
+  });
   require('../lib/html5lightbox.js');
   require('../lib/main.js');
 });
