@@ -1,3 +1,4 @@
+
 var owl = $("#header-slider");
 
 	owl.owlCarousel({
@@ -104,4 +105,9 @@ var topoffset = 0;
 $.scrollUp({
 	scrollDistance: 2000,
 	scrollSpeed: 1200,
+});
+
+tinymce.init({
+  selector: 'textarea',
+  skin_url: '/packages/teamon_tinymce/skins/lightgray',
 });

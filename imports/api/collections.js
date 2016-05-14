@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-// import { attachSchema, SimpleSchema } from 'meteor/aldeed:collection2';
+import { attachSchema } from 'meteor/aldeed:collection2';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { check } from 'meteor/check';
 
 export const Posts = new Mongo.Collection('posts');
@@ -12,7 +13,7 @@ Posts.attachSchema(new SimpleSchema({
   },
   body: {
     type: String,
-    max: 1000,
+    max: 100000,
   },
   tags:{
     type: [String],

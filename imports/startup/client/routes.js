@@ -47,19 +47,23 @@ Router.route('/admin/posts/add', {
   template: 'addPost',
   onBeforeAction() {
     if (!Meteor.userId()) {
-    // if the user is not logged in, render the Login template
-    this.render('Login');
+      // if the user is not logged in, render the Login template
+      this.render('Login');
     } else {
-      // otherwise don't hold up the rest of hooks or our route/action function
-      // from running
       this.next();
     }
+
+
   }
 });
 
-Router.route('/admin/posts/:id/edit', {
+Router.route('/admin/posts/:_id/edit', {
   name: 'edit-post',
   template: 'editPost',
+  data() {
+    const post_id = this.params._id;
+    return Posts.findOne({_id: post_id});
+  },
   onBeforeAction() {
     if (!Meteor.userId()) {
     // if the user is not logged in, render the Login template
@@ -102,7 +106,7 @@ Router.route('/admin/projects/add', {
   }
 });
 
-Router.route('/admin/projects/:id/edit', {
+Router.route('/admin/projects/:_id/edit', {
   name: 'edit-project',
   template: 'editProject',
   onBeforeAction() {

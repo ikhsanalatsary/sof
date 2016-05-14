@@ -1,29 +1,33 @@
 <template name="listPost">
     <div class="container ww">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="col-lg-8 col-lg-offset-2 list">
               <div class="title">
                 <h2>Blog Posts</h2>
               </div>
-               <a href="/admin/posts/add" class="btn btn-primary btn-tiny">Create Post</a>
+               <a href="#" class="btn btn-primary create">Create Post</a>
                 <br><br>
                 <table class="table table-striped">
+                  <thead>
                     <tr>
                         <th>Post Title</th>
                         <th>Last Update</th>
                         <th></th>
                     </tr>
+                  </thead>
+                  <tbody>
                     {{#each posts}}
                         <tr>
                             <td>{{title}}</td>
                             <td>{{formatDate updatedAt}}</td>
-                            <td><a href="/admin/posts/{{_id}}/edit" class="btn btn-default btn-tiny">Edit</a> <button class="btn btn-danger delete_post">Delete</button></td>
+                            <td><a href="#" class="btn btn-default edit_post">Edit</a> <button class="btn btn-danger delete_post">Delete</button></td>
                         </tr>
                     {{else}}
                         <tr>
                             <td>There are no posts</td>
                         </tr>
                     {{/each}}
+                  </tbody>
                 </table>
             </div>
 

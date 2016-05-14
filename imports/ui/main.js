@@ -17,10 +17,6 @@ Template.body.onRendered(function() {
 });
 
 Template.layout.onRendered(function() {
-  tinymce.init({
-    selector: 'textarea',
-    skin_url: '/packages/teamon_tinymce/skins/lightgray',
-  });
   require('../lib/html5lightbox.js');
   require('../lib/main.js');
 });
@@ -56,5 +52,5 @@ Template.layout.events({
     Meteor.logout();
     Router.go('/');
     return false
-  }
+  },
 });
