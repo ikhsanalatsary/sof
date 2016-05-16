@@ -14,9 +14,53 @@ import './list-posts.html';
 
 // Global helper
 Template.registerHelper('formatDate', function(date) {
-  return moment(date).format('DD-MM-YYYY');
+  return moment(date).format('DD-MM-YYYY, h:mm:ss a');
 });
 
+// Render Template
+Template.addPost.onRendered(function() {
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste"
+    ],
+    image_caption: true,
+    file_browser_callback: function(field_name, url, type, win) {
+      if(type =='image') {
+        filepicker.pick(function(Blob){
+          win.document.getElementById(field_name).value = Blob.url;
+          console.log(Blob.url);
+        });
+      }
+    },
+    skin_url: '/packages/teamon_tinymce/skins/lightgray',
+  });
+});
+
+Template.editPost.onRendered(function() {
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste"
+    ],
+    image_caption: true,
+    file_browser_callback: function(field_name, url, type, win) {
+      if(type =='image') {
+        filepicker.pick(function(Blob){
+          win.document.getElementById(field_name).value = Blob.url;
+          console.log(Blob.url);
+        });
+      }
+    },
+    skin_url: '/packages/teamon_tinymce/skins/lightgray',
+  });
+});
+
+// Events
 Template.addPost.events({
   'submit .add-form'(event) {
     const target = event.target;
@@ -39,18 +83,15 @@ Template.addPost.events({
 
 
     return false;
+  },
+  'click .reload'() {
+    location.reload(true);
+
+    return false;
   }
 });
 
 Template.listPost.events({
-  'click .create'(event) {
-    Router.go('/admin/posts/add');
-    setTimeout(() => {
-      location.reload(true);
-    }, 100);
-
-    return false;
-  },
   'click .delete_post'() {
     const post_id = this._id;
     swal({
@@ -78,14 +119,6 @@ Template.listPost.events({
           return;
         }
       });
-
-    return false;
-  },
-  'click .edit_post'() {
-    Router.go('/admin/posts/' + this._id + '/edit');
-    setTimeout(() => {
-      document.location.reload(true);
-    }, 500);
 
     return false;
   },

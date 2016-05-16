@@ -107,7 +107,4 @@ $.scrollUp({
 	scrollSpeed: 1200,
 });
 
-tinymce.init({
-  selector: 'textarea',
-  skin_url: '/packages/teamon_tinymce/skins/lightgray',
-});
+filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
