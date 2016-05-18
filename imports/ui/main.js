@@ -14,6 +14,7 @@ Template.body.onRendered(function() {
   require('../lib/jquery.counterup.min.js');
   require('../lib/jquery.nav.js');
   require('../lib/jquery.mixitup.js');
+  require('../lib/filestack.js');
 });
 
 Template.layout.onRendered(function() {

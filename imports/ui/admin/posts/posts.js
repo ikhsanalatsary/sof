@@ -92,7 +92,8 @@ Template.addPost.events({
 });
 
 Template.listPost.events({
-  'click .delete_post'() {
+  'click .delete_post'(event) {
+    event.preventDefault();
     const post_id = this._id;
     swal({
         title: "Are you sure?",
@@ -119,8 +120,6 @@ Template.listPost.events({
           return;
         }
       });
-
-    return false;
   },
 });
 

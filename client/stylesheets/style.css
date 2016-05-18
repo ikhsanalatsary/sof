@@ -77,7 +77,7 @@ a:active {
   background: transparent;
 }
 .ww {
-  padding: 130px;
+  padding: 150px;
 }
 .pt {
   z-index: 1031;
@@ -1335,4 +1335,9 @@ footer p {
   color: #fff;
   -webkit-transition-duration: .2s;
   -webkit-transition-timing-function: ease-in-out;
+}
+
+/* filepicker / filestack */
+.fp__overlay {
+  z-index: 65540 !important;
 }

@@ -2,7 +2,7 @@ import { Router } from 'meteor/iron:router';
 import { _ } from 'meteor/underscore';
 import { Template } from 'meteor/templating';
 
-import { Posts } from '../../api/collections.js';
+import { Posts, Projects } from '../../api/collections.js';
 
 import '../../ui/main.js';
 import '../../ui/admin/posts/posts.js';
@@ -79,6 +79,12 @@ Router.route('/admin/posts/:_id/edit', {
 Router.route('/admin/projects', {
   name: 'list-project',
   template: 'listProject',
+  data() {
+    let templateData = {
+      projects: Projects.find({}, {sort: {updatedAt: -1}})
+    }
+    return templateData;
+  },
   onBeforeAction() {
     if (!Meteor.userId()) {
     // if the user is not logged in, render the Login template
@@ -109,6 +115,10 @@ Router.route('/admin/projects/add', {
 Router.route('/admin/projects/:_id/edit', {
   name: 'edit-project',
   template: 'editProject',
+  data() {
+    const project_id = this.params._id;
+    return Projects.findOne({_id: project_id});
+  },
   onBeforeAction() {
     if (!Meteor.userId()) {
     // if the user is not logged in, render the Login template

@@ -32,3 +32,46 @@ Posts.attachSchema(new SimpleSchema({
     },
   },
 }));
+
+export const Projects = new Mongo.Collection('projects');
+
+Projects.attachSchema(new SimpleSchema({
+  name: {
+    type: String,
+    max: 100,
+  },
+  description: {
+    type: String,
+    max: 1000,
+  },
+  client: {
+    type: String,
+    max: 100,
+  },
+  type: {
+    type: String,
+    max: 100,
+  },
+  projectDate: {
+    type: String,
+    max: 100,
+    optional: true,
+  },
+  projectImage: {
+    type: String,
+    max: 100,
+    optional: true,
+  },
+  author: {
+    type: String,
+    autoValue() {
+      return Meteor.userId();
+    },
+  },
+  updatedAt: {
+    type: Date,
+    autoValue() {
+      return new Date();
+    },
+  },
+}));
