@@ -19,6 +19,8 @@ Template.registerHelper('formatDate', function(date) {
 
 // Render Template
 Template.addPost.onRendered(function() {
+  require('filepicker-js');
+  filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
   tinymce.init({
     selector: 'textarea',
     plugins: [
@@ -40,6 +42,8 @@ Template.addPost.onRendered(function() {
 });
 
 Template.editPost.onRendered(function() {
+  require('filepicker-js');
+  filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
   tinymce.init({
     selector: 'textarea',
     plugins: [

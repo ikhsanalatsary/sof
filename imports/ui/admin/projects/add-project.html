@@ -31,12 +31,18 @@
             </div>
             <div class="form-group">
               <label>Project Image</label>
-              <input type="filepicker" name="projectImage" id="projectImage">
+              <!-- <input type="filepicker" name="projectImage" id="projectImage"> -->
+              <input type="filepicker-dragdrop" data-fp-mimetypes="image/*" data-fp-container="modal" name="projectImage" id="projectImage">
+            </div>
+
+            <div id="showImage">
+
             </div>
 
 
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/admin/projects" class="btn btn-default">Go Back</a>
+            <a class="btn btn-info reload">Reload</a>
+            <a href="/admin/projects" class="btn btn-default">Cancel</a>
           </form>
         </div>
       </div>

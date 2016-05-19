@@ -106,5 +106,3 @@ $.scrollUp({
 	scrollDistance: 2000,
 	scrollSpeed: 1200,
 });
-
-filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");

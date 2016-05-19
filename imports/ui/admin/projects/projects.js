@@ -11,19 +11,21 @@ import './add-project.html';
 import './edit-project.html';
 import './list-projects.html';
 
-var image = {};
-
 Template.registerHelper('formatDate', function(date) {
   return moment(date).format('DD-MM-YYYY, h:mm:ss a');
 });
 
 Template.addProject.onRendered(function() {
+  require('filepicker-js');
+  filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
   $('#projectDate').datepicker({
     language: 'id'
   });
 });
 
 Template.editProject.onRendered(function() {
+  require('filepicker-js');
+  filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
   $('#projectDate').datepicker({
     language: 'id'
   });
@@ -32,17 +34,17 @@ Template.editProject.onRendered(function() {
 Template.addProject.events({
   'submit .add-form'(event) {
     event.preventDefault();
-    // this.image = 'bla';
+
     const target = event.target;
     const name = target.name.value;
     const projectDate = target.projectDate.value;
     const client = target.client.value;
     const type = target.type.value;
     const description = target.description.value;
-    const projectImage = image.url;
-    console.log(image.url);
+    const projectImage = target.projectImage.value;
+    console.log(projectImage);
 
-    if (typeof projectImage !== 'undefined') {
+    if (projectImage !== '') {
       Projects.insert({
         name,
         description,
@@ -50,6 +52,12 @@ Template.addProject.events({
         type,
         projectDate,
         projectImage
+      }, function(err, _id) {
+        if (!err) {
+          console.log(_id + ' image');
+          FlashMessages.sendSuccess("Projects Added");
+          Router.go('/admin/projects');
+        }
       });
     } else {
       Projects.insert({
@@ -58,34 +66,93 @@ Template.addProject.events({
         client,
         type,
         projectDate
+      },function(err, _id) {
+        if (!err) {
+          console.log(_id + ' noimage');
+          FlashMessages.sendSuccess("Projects Added without upload image");
+          Router.go('/admin/projects');
+        }
       });
     }
-
-    FlashMessages.sendSuccess("Projects Added");
-    Router.go('/admin/projects');
-
   },
-  'click #projectImage'(event) {
+  'click .reload'() {
+    location.reload(true);
+
+    return false;
+  },
+  'change #projectImage'(event) {
+    event.preventDefault();
+    
+    var img = document.createElement("img");
+    img.src = event.originalEvent.fpfile.url;
+    var tag = document.getElementById("showImage");
+    tag.appendChild(img);
+  },
+});
+
+Template.editProject.events({
+  'submit .edit_project_form'(event) {
     event.preventDefault();
 
-    filepicker.pickMultiple(
-      {
-        mimetype: 'image/*',
-        maxFiles: 3
-      },
-      function(Blobs){
-        console.log(JSON.stringify(Blobs));
-        return Blobs.forEach(function(Blob) {
-          return image.url = Blob.url;
-        });
-      },
-      function(error){
-        console.log(JSON.stringify(error));
-      }
+    const target = event.target;
+    const name = target.name.value;
+    const projectDate = target.projectDate.value;
+    const client = target.client.value;
+    const type = target.type.value;
+    const description = target.description.value;
+    const projectImage = target.projectImage.value;
+    console.log(projectImage);
 
-    );
-  }
+    if (projectImage !== '') {
+      Projects.update(this._id, {
+        $set: {
+          name,
+          description,
+          client,
+          type,
+          projectDate,
+          projectImage,
+        }
+      }, function(err, num) {
+        if (!err) {
+          console.log(num + 'field update image');
+          FlashMessages.sendSuccess("Projects Added");
+          Router.go('/admin/projects');
+        }
+      });
+    } else {
+      Projects.update(this._id, {
+        $set: {
+          name,
+          description,
+          client,
+          type,
+          projectDate,
+        }
+      },function(err, num) {
+        if (!err) {
+          console.log(num + 'field update noimage');
+          FlashMessages.sendSuccess("Projects Added without upload image");
+          Router.go('/admin/projects');
+        }
+      });
+    }
+  },
+  'click .reload'() {
+    location.reload(true);
+
+    return false;
+  },
+  'change #projectImage'(event) {
+    event.preventDefault();
+
+    var img = document.createElement("img");
+    img.src = event.originalEvent.fpfile.url;
+    var tag = document.getElementById("showImage");
+    tag.appendChild(img);
+  },
 });
+
 
 Template.listProject.events({
   'click .delete_project'(event) {
