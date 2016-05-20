@@ -82,7 +82,7 @@ Template.addProject.events({
   },
   'change #projectImage'(event) {
     event.preventDefault();
-    
+
     var img = document.createElement("img");
     img.src = event.originalEvent.fpfile.url;
     var tag = document.getElementById("showImage");
@@ -116,7 +116,7 @@ Template.editProject.events({
       }, function(err, num) {
         if (!err) {
           console.log(num + 'field update image');
-          FlashMessages.sendSuccess("Projects Added");
+          FlashMessages.sendSuccess("Projects edited!");
           Router.go('/admin/projects');
         }
       });
@@ -132,7 +132,7 @@ Template.editProject.events({
       },function(err, num) {
         if (!err) {
           console.log(num + 'field update noimage');
-          FlashMessages.sendSuccess("Projects Added without upload image");
+          FlashMessages.sendSuccess("Projects edited without upload image");
           Router.go('/admin/projects');
         }
       });
@@ -145,10 +145,13 @@ Template.editProject.events({
   },
   'change #projectImage'(event) {
     event.preventDefault();
+    var tag = document.getElementById("showImage");
+    if (tag.childNodes.length === 3 && tag.getElementsByTagName('img')) {
+      tag.removeChild(tag.childNodes[1]);
+    }
 
     var img = document.createElement("img");
     img.src = event.originalEvent.fpfile.url;
-    var tag = document.getElementById("showImage");
     tag.appendChild(img);
   },
 });
@@ -160,7 +163,7 @@ Template.listProject.events({
     const project_id = this._id;
     swal({
         title: "Are you sure?",
-        text: "You will delete this Post!",
+        text: "You will delete this Project!",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: '#DD6B55',
@@ -173,13 +176,13 @@ Template.listProject.events({
         if (isConfirm) {
           Projects.remove(project_id, function(err) {
             if (!err) {
-              swal("Success", "Your post deleted!", "success");
+              swal("Success", "Your project deleted!", "success");
             } else {
               swal("Error!", err.reason, "error");
             }
           });
         } else {
-          swal("Cancelled", "Your post is safe :)", "error");
+          swal("Cancelled", "Your project is safe :)", "error");
           return;
         }
       });

@@ -1,0 +1,38 @@
+<template name="listPcategories">
+    <div class="container ww">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 list">
+              <div class="title">
+                <h2>Post Categories</h2>
+              </div>
+               <a href="{{pathFor route='add-pcategory'}}" class="btn btn-primary create">Create Category</a>
+                <br><br>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                        <th>Category Title</th>
+                        <th>Last Update</th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each postCategories}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{formatDate createdAt}}</td>
+                            <td><a href="{{pathFor route='edit-pcategory'}}" class="btn btn-default">Edit</a> <button class="btn btn-danger delete_pcategory">Delete</button></td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td>There are no category</td>
+                        </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</template>

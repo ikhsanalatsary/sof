@@ -75,3 +75,24 @@ Projects.attachSchema(new SimpleSchema({
     },
   },
 }));
+
+export const PostCategories = new Mongo.Collection('pcategories');
+
+PostCategories.attachSchema(new SimpleSchema({
+  name: {
+    type: String,
+    max: 100,
+  },
+  author: {
+    type: String,
+    autoValue() {
+      return Meteor.userId();
+    },
+  },
+  createdAt: {
+    type: Date,
+    autoValue() {
+      return new Date();
+    },
+  },
+}));
