@@ -5,7 +5,7 @@
               <div class="title">
                 <h2>Post Categories</h2>
               </div>
-               <a href="{{pathFor route='add-pcategory'}}" class="btn btn-primary create">Create Category</a>
+               <a href="{{pathFor route='add-pcategory'}}" class="btn btn-primary btn-sm create">Create Category</a>
                 <br><br>
                 <table class="table table-striped">
                   <thead>
@@ -19,7 +19,7 @@
                     {{#each postCategories}}
                         <tr>
                             <td>{{name}}</td>
-                            <td>{{formatDate createdAt}}</td>
+                            <td>{{formatDate updatedAt}}</td>
                             <td><a href="{{pathFor route='edit-pcategory'}}" class="btn btn-default">Edit</a> <button class="btn btn-danger delete_pcategory">Delete</button></td>
                         </tr>
                     {{else}}

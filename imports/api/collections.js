@@ -4,6 +4,29 @@ import { attachSchema } from 'meteor/aldeed:collection2';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { check } from 'meteor/check';
 
+export const PostCategories = new Mongo.Collection('pcategories');
+
+const postCategoriesSchema = new SimpleSchema({
+  name: {
+    type: String,
+    max: 100,
+  },
+  author: {
+    type: String,
+    autoValue() {
+      return Meteor.userId();
+    },
+  },
+  updatedAt: {
+    type: Date,
+    autoValue() {
+      return new Date();
+    },
+  },
+})
+
+PostCategories.attachSchema(postCategoriesSchema);
+
 export const Posts = new Mongo.Collection('posts');
 
 Posts.attachSchema(new SimpleSchema({
@@ -18,6 +41,10 @@ Posts.attachSchema(new SimpleSchema({
   tags:{
     type: [String],
     optional: true
+  },
+  pcategoryId: {
+    type: String,
+    max: 200,
   },
   author: {
     type: String,
@@ -69,27 +96,6 @@ Projects.attachSchema(new SimpleSchema({
     },
   },
   updatedAt: {
-    type: Date,
-    autoValue() {
-      return new Date();
-    },
-  },
-}));
-
-export const PostCategories = new Mongo.Collection('pcategories');
-
-PostCategories.attachSchema(new SimpleSchema({
-  name: {
-    type: String,
-    max: 100,
-  },
-  author: {
-    type: String,
-    autoValue() {
-      return Meteor.userId();
-    },
-  },
-  createdAt: {
     type: Date,
     autoValue() {
       return new Date();

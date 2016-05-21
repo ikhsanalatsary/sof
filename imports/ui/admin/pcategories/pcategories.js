@@ -28,7 +28,7 @@ Template.addPcategory.events({
         FlashMessages.sendSuccess("Post Category Added");
         Router.go('/admin/pcategory');
       } else {
-        FlashMessages.sendError(err.reason);
+        FlashMessages.sendError(err.toString());
       }
     });
 
@@ -46,7 +46,7 @@ Template.editPcategory.events({
       }
     }, function (err, result) {
       if (err) {
-        FlashMessages.sendError(err.reason);
+        FlashMessages.sendError(err.toString());
       }
       Router.go('/admin/pcategory');
     });
@@ -77,7 +77,7 @@ Template.listPcategories.events({
             if (!err) {
               swal("Success", "Your post category deleted!", "success");
             } else {
-              swal("Error!", err.reason, "error");
+              swal("Error!", err.toString(), "error");
             }
           });
         } else {

@@ -15,6 +15,15 @@
             <textarea id="edit" class="form-control" rows="10" name="body"></textarea>
           </div>
           <div class="form-group">
+            <label for="sel1">Select Category:</label>
+            <select name="pcategory" class="form-control" id="sel1">
+              <option disabled selected> Choose Category </option>
+              {{#each pCategories}}
+                <option value="{{this._id}}">{{ name }}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="form-group">
             <label for="Tags">Tags</label>
             <input type="text" class="form-control" name="tags" placeholder="Type tags, separate by comma. e.g: tutorial, ulasan">
           </div>

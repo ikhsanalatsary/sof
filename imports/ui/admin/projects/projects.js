@@ -57,6 +57,8 @@ Template.addProject.events({
           console.log(_id + ' image');
           FlashMessages.sendSuccess("Projects Added");
           Router.go('/admin/projects');
+        } else {
+          FlashMessages.sendError(err.toString());
         }
       });
     } else {
@@ -71,6 +73,8 @@ Template.addProject.events({
           console.log(_id + ' noimage');
           FlashMessages.sendSuccess("Projects Added without upload image");
           Router.go('/admin/projects');
+        } else {
+          FlashMessages.sendError(err.toString());
         }
       });
     }
@@ -118,6 +122,8 @@ Template.editProject.events({
           console.log(num + 'field update image');
           FlashMessages.sendSuccess("Projects edited!");
           Router.go('/admin/projects');
+        } else {
+          FlashMessages.sendError(err.toString());
         }
       });
     } else {
@@ -134,6 +140,8 @@ Template.editProject.events({
           console.log(num + 'field update noimage');
           FlashMessages.sendSuccess("Projects edited without upload image");
           Router.go('/admin/projects');
+        } else {
+          FlashMessages.sendError(err.toString());
         }
       });
     }
@@ -178,7 +186,7 @@ Template.listProject.events({
             if (!err) {
               swal("Success", "Your project deleted!", "success");
             } else {
-              swal("Error!", err.reason, "error");
+              swal("Error!", err.toString(), "error");
             }
           });
         } else {
@@ -186,5 +194,10 @@ Template.listProject.events({
           return;
         }
       });
+  },
+  'click .reload'() {
+    location.reload(true);
+
+    return false;
   },
 });

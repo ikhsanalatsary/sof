@@ -1,11 +1,12 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
 import { FlashMessages } from 'meteor/mrt:flash-messages';
 import { moment } from 'meteor/momentjs:moment';
 import swal from 'sweetalert';
 
-import { Posts } from '../../../api/collections.js';
+import { Posts, PostCategories } from '../../../api/collections.js';
 
 import '../../../../node_modules/sweetalert/dist/sweetalert.css';
 import './add-post.html';
@@ -15,6 +16,10 @@ import './list-posts.html';
 // Global helper
 Template.registerHelper('formatDate', function(date) {
   return moment(date).format('DD-MM-YYYY, h:mm:ss a');
+});
+
+Template.registerHelper('categoryName', function(pcategoryId) {
+  return PostCategories.findOne(pcategoryId).name;
 });
 
 // Render Template
@@ -64,27 +69,46 @@ Template.editPost.onRendered(function() {
   });
 });
 
+// Template Helper
+Template.addPost.helpers({
+  'pCategories'() {
+    return PostCategories.find({});
+  }
+});
+
+Template.editPost.helpers({
+  'pCategories'() {
+    return PostCategories.find({});
+  }
+});
+
 // Events
 Template.addPost.events({
   'submit .add-form'(event) {
     const target = event.target;
     const title = target.title.value;
     const body = target.body.value;
+    const pcategoryId = target.pcategory.value;
     var tags = target.tags.value;
     tags = tags.toLowerCase().trim().split(',');
-    console.log(tags);
 
     var posting = {
       title,
       body,
+      pcategoryId,
       tags,
     }
 
-    Posts.insert(posting);
-
-    FlashMessages.sendSuccess("Post Added");
-    Router.go('/admin/posts');
-
+    Posts.insert(posting, function(err, _id) {
+      if (!err) {
+        console.log(_id);
+        FlashMessages.sendSuccess("Post Added");
+        Router.go('/admin/posts');
+      } else {
+        console.log(err);
+        FlashMessages.sendError(err.toString());
+      }
+    });
 
     return false;
   },
@@ -116,7 +140,7 @@ Template.listPost.events({
             if (!err) {
               swal("Success", "Your post deleted!", "success");
             } else {
-              swal("Error!", err.reason, "error");
+              swal("Error!", err.toString(), "error");
             }
           });
         } else {
@@ -125,12 +149,18 @@ Template.listPost.events({
         }
       });
   },
+  'click .reload'() {
+    location.reload(true);
+
+    return false;
+  },
 });
 
 Template.editPost.events({
   'submit .edit-form'(event) {
     const title = event.target.title.value;
     const body = document.getElementById('edit').value;
+    const pcategoryId = event.target.pcategory.value;
     var tags = event.target.tags.value;
     tags = tags.toLowerCase().trim().split(',');
 
@@ -138,13 +168,18 @@ Template.editPost.events({
       $set: {
         title,
         body,
+        pcategoryId,
         tags,
       }
     }, function (err, result) {
       if (err) {
-        FlashMessages.sendError(err.reason);
+        console.log(err);
+        FlashMessages.sendError(err.toString());
+      } else {
+        console.log(result);
+        FlashMessages.sendSuccess("Post Edited");
+        Router.go('/admin/posts');
       }
-      Router.go('/admin/posts');
     });
 
 
