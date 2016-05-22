@@ -5,7 +5,7 @@
               <div class="title">
                 <h2>Post Categories</h2>
               </div>
-               <a href="{{pathFor route='add-pcategory'}}" class="btn btn-primary btn-sm create">Create Category</a>
+               <a href="{{pathFor route='add-pcategory'}}" class="btn btn-primary btn-sm create"><i class="icon ion-compose"></i> Create</a>
                 <br><br>
                 <table class="table table-striped">
                   <thead>
@@ -20,7 +20,8 @@
                         <tr>
                             <td>{{name}}</td>
                             <td>{{formatDate updatedAt}}</td>
-                            <td><a href="{{pathFor route='edit-pcategory'}}" class="btn btn-default">Edit</a> <button class="btn btn-danger delete_pcategory">Delete</button></td>
+                            <td><a href="{{pathFor route='edit-pcategory'}}" class="btn btn-default"><i class="icon ion-edit"></i></a>
+                              <button class="btn btn-danger delete_pcategory"><i class="icon ion-android-delete"></i></button></td>
                         </tr>
                     {{else}}
                         <tr>

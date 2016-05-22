@@ -1,52 +1,44 @@
 <template name="addProject">
-    <div class="container ww">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <div class="title">
-            <h2>Create Project</h2>
-          </div>
-          <form class="add_project_form add-form" enctype="multipart/form-data">
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Project Name">
-            </div>
-            <div class="form-group">
-              <label>Client</label>
-              <input type="text" class="form-control" id="client" name="client" placeholder="Client Name">
-            </div>
-            <div class="form-group">
-              <label>Type</label>
-              <input type="text" class="form-control" id="type" name="type" placeholder="Project Type">
-            </div>
-            <div class="form-group">
-              <label>Project Date</label>
-              <div class="input-group datetimepicker">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input class="set-due-date" id="projectDate" name="projectDate" form-control type="text"/>
-               </div>
-            </div>
-            <div class="form-group">
-              <label>Description</label>
-              <textarea class="form-control" id="description" name="description" placeholder="Description"></textarea>
-            </div>
-            <div class="form-group">
-              <label>Project Image</label>
-              <!-- <input type="filepicker" name="projectImage" id="projectImage"> -->
-              <input type="filepicker-dragdrop" data-fp-mimetypes="image/*" data-fp-container="modal" name="projectImage" id="projectImage">
-            </div>
-
-            <div id="showImage">
-
-            </div>
-
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a class="btn btn-info reload">Reload</a>
-            <a href="/admin/projects" class="btn btn-default">Cancel</a>
-          </form>
-        </div>
-      </div>
-        <!-- /row -->
+  <div class="title">
+    <h2>Create Project</h2>
+  </div>
+  <form class="add-form" enctype="multipart/form-data">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Project Name">
     </div>
-    <!-- /container -->
+    <div class="form-group">
+      <label>Client</label>
+      <input type="text" class="form-control" id="client" name="client" placeholder="Client Name">
+    </div>
+    <div class="form-group">
+      <label>Type</label>
+      <input type="text" class="form-control" id="type" name="type" placeholder="Project Type">
+    </div>
+    <div class="form-group">
+      <label>Project Date</label>
+      <div class="input-group datetimepicker">
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        <input class="set-due-date" id="projectDate" name="projectDate" form-control type="text"/>
+       </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea class="form-control" id="description" name="description" placeholder="Description"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Project Image</label>
+      <!-- <input type="filepicker" name="projectImage" id="projectImage"> -->
+      <input type="filepicker-dragdrop" data-fp-mimetypes="image/*" data-fp-container="modal" name="projectImage" id="projectImage">
+    </div>
+
+    <div id="showImage">
+
+    </div>
+
+
+    <button type="submit" class="btn btn-primary"><i class="icon ion-android-send"></i> Submit</button>
+    <a class="btn btn-info reload"><i class="icon ion-ios-reload"></i> Reload</a>
+    <a href="/admin/projects" class="btn btn-default"><i class="icon ion-android-cancel"></i> Cancel</a>
+  </form>
 </template>

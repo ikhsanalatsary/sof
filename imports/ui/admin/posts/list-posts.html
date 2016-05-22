@@ -1,39 +1,31 @@
 <template name="listPost">
-    <div class="container ww">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 list">
-              <div class="title">
-                <h2>Blog Posts</h2>
-              </div>
-               <a href="{{pathFor route='add-post'}}" class="btn btn-primary create">Create Post</a>
-               <a class="btn btn-info reload">Reload</a>
-                <br><br>
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                        <th>Post Title</th>
-                        <th>Last Update</th>
-                        <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each posts}}
-                        <tr>
-                            <td>{{title}}</td>
-                            <td>{{formatDate updatedAt}}</td>
-                            <td><a href="{{pathFor route='edit-post'}}" class="btn btn-default edit_post">Edit</a> <button class="btn btn-danger delete_post">Delete</button></td>
-                        </tr>
-                    {{else}}
-                        <tr>
-                            <td>There are no posts</td>
-                        </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-            </div>
-
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
+  <div class="title">
+    <h2>Blog Posts</h2>
+  </div>
+   <a href="{{pathFor route='add-post'}}" class="btn btn-primary create"><i class="icon ion-compose"></i> Create</a>
+   <a class="btn btn-info reload"><i class="icon ion-ios-reload"></i> Reload</a>
+    <br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>Post Title</th>
+            <th>Last Update</th>
+            <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each posts}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{formatDate updatedAt}}</td>
+                <td><a href="{{pathFor route='edit-post'}}" class="btn btn-default edit_post"><i class="icon ion-edit"></i></a>
+                  <button class="btn btn-danger delete_post"><i class="icon ion-android-delete"></i></button></td>
+            </tr>
+        {{else}}
+            <tr>
+                <td>There are no posts</td>
+            </tr>
+        {{/each}}
+      </tbody>
+    </table>
 </template>

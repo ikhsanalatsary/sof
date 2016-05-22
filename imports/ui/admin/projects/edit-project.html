@@ -1,49 +1,41 @@
 <template name="editProject">
-    <div class="container ww">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>Edit Project</h2> <small>{{name}}</small>
-                <form class="edit_project_form" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Project Name" value="{{name}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Client</label>
-                        <input type="text" class="form-control" id="client" name="client" placeholder="Client Name" value="{{client}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Type</label>
-                        <input type="text" class="form-control" id="type" name="type" placeholder="Project Type" value="{{type}}">
-                    </div>
-                    <div class="form-group">
-                          <label>Project Date</label>
-                             <div class="input-group datetimepicker">
-                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                             <input class="set-due-date" id="projectDate" name="projectDate" form-control type="text" value="{{projectDate}}"/>
-                           </div>
-                     </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Description">{{description}}</textarea>
-                    </div>
-                    <div class="form-group">
-                      <label>Project Image</label>
-                      <!-- <input type="filepicker" name="projectImage" id="projectImage"> -->
-                      <input type="filepicker-dragdrop" data-fp-mimetypes="image/*" data-fp-container="modal" name="projectImage" id="projectImage">
-                    </div>
+  <h2>Edit Project</h2> <small>{{name}}</small>
+  <form class="edit_project_form" enctype="multipart/form-data">
+      <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Project Name" value="{{name}}">
+      </div>
+      <div class="form-group">
+          <label>Client</label>
+          <input type="text" class="form-control" id="client" name="client" placeholder="Client Name" value="{{client}}">
+      </div>
+      <div class="form-group">
+          <label>Type</label>
+          <input type="text" class="form-control" id="type" name="type" placeholder="Project Type" value="{{type}}">
+      </div>
+      <div class="form-group">
+            <label>Project Date</label>
+               <div class="input-group datetimepicker">
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+               <input class="set-due-date" id="projectDate" name="projectDate" form-control type="text" value="{{projectDate}}"/>
+             </div>
+       </div>
+      <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" id="description" name="description" placeholder="Description">{{description}}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Project Image</label>
+        <!-- <input type="filepicker" name="projectImage" id="projectImage"> -->
+        <input type="filepicker-dragdrop" data-fp-mimetypes="image/*" data-fp-container="modal" name="projectImage" id="projectImage">
+      </div>
 
-                    <div id="showImage">
-                      Current Image: <img class="edit-image" src="{{projectImage}}">
-                    </div>
+      <div id="showImage">
+        Current Image: <img class="edit-image" src="{{projectImage}}">
+      </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-info reload">Reload</a>
-                    <a href="/admin/projects" class="btn btn-default">Go Back</a>
-                </form>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
+      <button type="submit" class="btn btn-primary"><i class="icon ion-android-send"></i> Save</button>
+      <a class="btn btn-info reload"><i class="icon ion-ios-reload"></i> Reload</a>
+      <a href="/admin/projects" class="btn btn-default"><i class="icon ion-android-cancel"></i> Cancel</a>
+  </form>
 </template>

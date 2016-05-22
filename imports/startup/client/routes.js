@@ -5,9 +5,10 @@ import { Template } from 'meteor/templating';
 import { Posts, Projects, PostCategories } from '../../api/collections.js';
 
 import '../../ui/main.js';
-import '../../ui/admin/pcategories/pcategories.js';
-import '../../ui/admin/posts/posts.js';
-import '../../ui/admin/projects/projects.js';
+import '../../ui/admin';
+// import '../../ui/admin/pcategories/pcategories.js';
+// import '../../ui/admin/posts/posts.js';
+// import '../../ui/admin/projects/projects.js';
 
 Router.configure({
   layoutTemplate: 'layout',
@@ -25,6 +26,7 @@ Router.route('/', {
 Router.route('/admin/posts', {
   name: 'list-post',
   template: 'listPost',
+  layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
       posts: Posts.find({}, {sort: {updatedAt: -1}})
@@ -46,6 +48,7 @@ Router.route('/admin/posts', {
 Router.route('/admin/posts/add', {
   name: 'add-post',
   template: 'addPost',
+  layoutTemplate: 'adminLayout',
   onBeforeAction() {
     if (!Meteor.userId()) {
       // if the user is not logged in, render the Login template
@@ -61,6 +64,7 @@ Router.route('/admin/posts/add', {
 Router.route('/admin/posts/:_id/edit', {
   name: 'edit-post',
   template: 'editPost',
+  layoutTemplate: 'adminLayout',
   data() {
     const post_id = this.params._id;
     return Posts.findOne({_id: post_id});
@@ -80,6 +84,7 @@ Router.route('/admin/posts/:_id/edit', {
 Router.route('/admin/projects', {
   name: 'list-project',
   template: 'listProject',
+  layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
       projects: Projects.find({}, {sort: {updatedAt: -1}})
@@ -101,6 +106,7 @@ Router.route('/admin/projects', {
 Router.route('/admin/projects/add', {
   name: 'add-project',
   template: 'addProject',
+  layoutTemplate: 'adminLayout',
   onBeforeAction() {
     if (!Meteor.userId()) {
     // if the user is not logged in, render the Login template
@@ -116,6 +122,7 @@ Router.route('/admin/projects/add', {
 Router.route('/admin/projects/:_id/edit', {
   name: 'edit-project',
   template: 'editProject',
+  layoutTemplate: 'adminLayout',
   data() {
     const project_id = this.params._id;
     return Projects.findOne({_id: project_id});
@@ -135,6 +142,7 @@ Router.route('/admin/projects/:_id/edit', {
 Router.route('admin/pcategory/', {
   name: 'list-pcategories',
   template: 'listPcategories',
+  layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
       postCategories: PostCategories.find({}, {sort: {updatedAt: -1}})
@@ -146,6 +154,7 @@ Router.route('admin/pcategory/', {
 Router.route('/admin/pcategory/add', {
   name: 'add-pcategory',
   template: 'addPcategory',
+  layoutTemplate: 'adminLayout',
   onBeforeAction() {
     if (!Meteor.userId()) {
     // if the user is not logged in, render the Login template
@@ -161,6 +170,7 @@ Router.route('/admin/pcategory/add', {
 Router.route('/admin/pcategory/:_id/edit', {
   name: 'edit-pcategory',
   template: 'editPcategory',
+  layoutTemplate: 'adminLayout',
   data() {
     const pcategory_id = this.params._id;
     return PostCategories.findOne({_id: pcategory_id});
