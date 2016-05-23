@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import { $ } from 'meteor/jquery';
 
 import './style.css';
 import './admin-layout.html';

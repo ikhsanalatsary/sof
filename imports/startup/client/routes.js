@@ -6,9 +6,6 @@ import { Posts, Projects, PostCategories } from '../../api/collections.js';
 
 import '../../ui/main.js';
 import '../../ui/admin';
-// import '../../ui/admin/pcategories/pcategories.js';
-// import '../../ui/admin/posts/posts.js';
-// import '../../ui/admin/projects/projects.js';
 
 Router.configure({
   layoutTemplate: 'layout',
@@ -20,7 +17,14 @@ Router.configure({
 
 Router.route('/', {
   name: 'home',
-  template: 'home'
+  template: 'home',
+  data() {
+    let templateData = {
+      posts: Posts.find({}, {sort: {updatedAt: -1}}),
+      projects: Projects.find({}, {sort: {updatedAt: -1}})
+    }
+    return templateData;
+  },
 });
 
 Router.route('/admin/posts', {

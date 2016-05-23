@@ -29,26 +29,6 @@ var owl = $("#header-slider");
 				}
 	});
 
-		$("#blog-post").owlCarousel({
-				autoPlay : 5000,
-				items : 3,
-				responsiveClass:true,
-				responsive: {
-						0:{
-								items : 1
-						},
-						480:{
-								items : 1
-						},
-						768:{
-								items : 3
-						},
-						1200:{
-								items: 3
-						}
-				}
-		});
-
 $('.menu').onePageNav({
 	currentClass: 'active',
 	changeHash: true,

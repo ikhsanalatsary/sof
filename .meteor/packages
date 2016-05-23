@@ -25,7 +25,6 @@ accounts-password
 twbs:bootstrap
 natestrauser:animate-css
 fortawesome:fontawesome
-dennispark:owl-carousel-1
 bambattajb:sticky
 czbaker:lightbox2
 voyag3r:scrollup
@@ -38,3 +37,4 @@ momentjs:moment
 teamon:tinymce
 rajit:bootstrap3-datepicker-id
 msavin:mongol
+dennispark:owl-carousel-1

@@ -17,6 +17,18 @@ const postCategoriesSchema = new SimpleSchema({
       return Meteor.userId();
     },
   },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date()};
+      } else {
+        this.unset();  // Prevent user from supplying their own value
+      }
+    }
+  },
   updatedAt: {
     type: Date,
     autoValue() {
@@ -51,6 +63,18 @@ Posts.attachSchema(new SimpleSchema({
     autoValue() {
       return Meteor.userId();
     },
+  },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date()};
+      } else {
+        this.unset();  // Prevent user from supplying their own value
+      }
+    }
   },
   updatedAt: {
     type: Date,
@@ -94,6 +118,18 @@ Projects.attachSchema(new SimpleSchema({
     autoValue() {
       return Meteor.userId();
     },
+  },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date()};
+      } else {
+        this.unset();  // Prevent user from supplying their own value
+      }
+    }
   },
   updatedAt: {
     type: Date,

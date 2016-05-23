@@ -14,7 +14,7 @@
   <div class="form-group">
     <label for="sel1">Current Category:</label>
     <select name="pcategory" class="form-control" id="sel1">
-      <option disabled selected> {{categoryName pcategoryId}} </option>
+      <option value="{{pcategoryId}}" disabled selected> {{categoryName pcategoryId}} </option>
       {{#each pCategories}}
         <option value="{{this._id}}">{{ name }}</option>
       {{/each}}
