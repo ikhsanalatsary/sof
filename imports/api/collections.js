@@ -116,7 +116,12 @@ Projects.attachSchema(new SimpleSchema({
   author: {
     type: String,
     autoValue() {
-      return Meteor.userId();
+      try {
+        let userId = Meteor.userId();
+        return userId;
+      } catch (error) {
+        return 'G8sjGAxw39oP4tJrH';
+      }
     },
   },
   createdAt: {

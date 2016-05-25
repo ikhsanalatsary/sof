@@ -20,6 +20,10 @@ Template.registerHelper('getAuthor', function(authorId) {
   return Meteor.users.findOne(authorId).username;
 });
 
+Template.registerHelper('summary', function(body) {
+  return body = body.slice(0, -1000);
+});
+
 Template.body.onRendered(function() {
   require('../lib/jquery.counterup.min.js');
   require('../lib/jquery.nav.js');

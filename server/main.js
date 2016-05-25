@@ -6,6 +6,7 @@ import { PostCategories, Posts, Projects } from '../imports/api/collections.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
+  require('../imports/startup/server');
   if (Meteor.users.find().count() === 0) {
     Accounts.createUser(User);
   }
