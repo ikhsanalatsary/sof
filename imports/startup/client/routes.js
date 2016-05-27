@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Router } from 'meteor/iron:router';
 import { _ } from 'meteor/underscore';
 import { Template } from 'meteor/templating';
@@ -46,7 +47,10 @@ Router.route('/admin/posts', {
       // from running
       this.next();
     }
-  }
+  },
+  subscriptions() {
+    return Meteor.subscribe('posts');
+  },
 });
 
 Router.route('/admin/posts/add', {
@@ -60,9 +64,10 @@ Router.route('/admin/posts/add', {
     } else {
       this.next();
     }
-
-
-  }
+  },
+  subscriptions() {
+    return Meteor.subscribe('pcategories');
+  },
 });
 
 Router.route('/admin/posts/:_id/edit', {
@@ -82,6 +87,9 @@ Router.route('/admin/posts/:_id/edit', {
       // from running
       this.next();
     }
+  },
+  subscriptions() {
+    return [Meteor.subscribe('posts'), Meteor.subscribe('pcategories')];
   }
 });
 
@@ -104,6 +112,9 @@ Router.route('/admin/projects', {
       // from running
       this.next();
     }
+  },
+  subscriptions() {
+    return Meteor.subscribe('projects');
   }
 });
 
@@ -140,6 +151,9 @@ Router.route('/admin/projects/:_id/edit', {
       // from running
       this.next();
     }
+  },
+  subscriptions() {
+    return Meteor.subscribe('projects');
   }
 });
 
@@ -153,6 +167,9 @@ Router.route('admin/pcategory/', {
     }
     return templateData;
   },
+  subscriptions() {
+    return Meteor.subscribe('pcategories');
+  }
 });
 
 Router.route('/admin/pcategory/add', {
@@ -188,6 +205,9 @@ Router.route('/admin/pcategory/:_id/edit', {
       // from running
       this.next();
     }
+  },
+  subscriptions() {
+    return Meteor.subscribe('pcategories');
   }
 });
 

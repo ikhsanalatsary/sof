@@ -17,11 +17,17 @@ Template.registerHelper('indoDate', function(date) {
 });
 
 Template.registerHelper('getAuthor', function(authorId) {
-  return Meteor.users.findOne(authorId).username;
+  var user = Meteor.users.findOne(authorId);
+  var profile = user && user.profile && user.profile.name
+  return profile;
 });
 
 Template.registerHelper('summary', function(body) {
   return body = body.slice(0, -1000);
+});
+
+Template.home.onCreated(function subscriptions() {
+  return [Meteor.subscribe('posts'), Meteor.subscribe('projects')];
 });
 
 Template.body.onRendered(function() {

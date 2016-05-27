@@ -20,23 +20,14 @@ Template.addPcategory.events({
   'submit .add-post-category'(event) {
     const target = event.target;
     const name = target.name.value;
-    const admin = Meteor.userId();
 
-    var category = {
-      name
-    }
-
-    if (category.name === '') {
-      category.name = defaultName(admin);
-    }
-
-    PostCategories.insert(category, function(err, _id) {
-      if (!err) {
-        console.log(_id);
-        FlashMessages.sendSuccess("Post Category Added");
-        Router.go('/admin/pcategory');
+    Meteor.call('create.pcategory', name, (error, result) => {
+      if (error) {
+        console.log(error.reason);
+        FlashMessages.sendError(err.reason);
       } else {
-        FlashMessages.sendError(err.toString());
+        FlashMessages.sendSuccess("Post category Added");
+        Router.go('/admin/pcategory');
       }
     });
 
@@ -47,17 +38,15 @@ Template.addPcategory.events({
 Template.editPcategory.events({
   'submit .edit-post-category'(event) {
     const name = event.target.name.value;
-    PostCategories.update(this._id, {
-      $set: {
-        name,
-      }
-    }, function (err, result) {
+    const categoryId = this._id;
+
+    Meteor.call('edit.pcategory', name, categoryId, (err, result) => {
       if (err) {
-        FlashMessages.sendError(err.toString());
+        FlashMessages.sendError(err.reason);
       }
+      FlashMessages.sendSuccess("Post category edited");
       Router.go('/admin/pcategory');
     });
-
 
     return false;
   }
@@ -80,11 +69,14 @@ Template.listPcategories.events({
     },
       (isConfirm) => {
         if (isConfirm) {
-          PostCategories.remove(pcategory_id, function(err) {
-            if (!err) {
-              swal("Success", "Your post category deleted!", "success");
+          Meteor.call('delete.pcategory', pcategory_id, (error, result) => {
+            if (error) {
+              console.log(error.reason);
+              FlashMessages.sendError(err.reason);
+              swal("Error!", err.reason, "error");
             } else {
-              swal("Error!", err.toString(), "error");
+              FlashMessages.sendSuccess("Post category deleted");
+              swal("Success", "Your post category deleted!", "success");
             }
           });
         } else {
@@ -94,14 +86,3 @@ Template.listPcategories.events({
       });
   },
 });
-
-function defaultName(currentUser) {
-  var list = {};
-  list.nextLetter = 'A';
-  list.nextName = 'Category ' + list.nextLetter;
-  while (PostCategories.findOne({ name: list.nextName, author: currentUser })) {
-    list.nextLetter = String.fromCharCode(list.nextLetter.charCodeAt(0) + 1);
-    list.nextName = 'Category ' + list.nextLetter;
-  }
-  return list.nextName;
-}

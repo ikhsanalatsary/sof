@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
@@ -19,7 +20,12 @@ Template.registerHelper('formatDate', function(date) {
 });
 
 Template.registerHelper('categoryName', function(pcategoryId) {
-  return PostCategories.findOne(pcategoryId).name;
+  // teknik guarding
+  // http://seanmonstar.com/post/707078771/guard-and-default-operators
+  // http://stackoverflow.com/questions/25758476/exception-in-template-helper-typeerror-cannot-read-property-profile-of-undef
+  var category = PostCategories.findOne(pcategoryId);
+  var name = category && category.name;
+  return name;
 });
 
 // Render Template
@@ -92,21 +98,14 @@ Template.addPost.events({
     var tags = target.tags.value;
     tags = tags.toLowerCase().trim().split(',');
 
-    var posting = {
-      title,
-      body,
-      pcategoryId,
-      tags,
-    }
-
-    Posts.insert(posting, function(err, _id) {
+    Meteor.call('create.post', title, body, pcategoryId, tags, (err, _id) => {
       if (!err) {
         console.log(_id);
         FlashMessages.sendSuccess("Post Added");
         Router.go('/admin/posts');
       } else {
-        console.log(err);
-        FlashMessages.sendError(err.toString());
+        console.log(err.reason);
+        FlashMessages.sendError(err.reason);
       }
     });
 
@@ -136,11 +135,13 @@ Template.listPost.events({
     },
       (isConfirm) => {
         if (isConfirm) {
-          Posts.remove(post_id, function(err) {
+          Meteor.call('delete.post', post_id, (err, result) => {
             if (!err) {
+              FlashMessages.sendSuccess("Post deleted");
               swal("Success", "Your post deleted!", "success");
             } else {
-              swal("Error!", err.toString(), "error");
+              FlashMessages.sendError(err.reason);
+              swal("Error!", err.reason, "error");
             }
           });
         } else {
@@ -158,30 +159,23 @@ Template.listPost.events({
 
 Template.editPost.events({
   'submit .edit-form'(event) {
+    const post_id = this._id;
     const title = event.target.title.value;
     const body = document.getElementById('edit').value;
     const pcategoryId = event.target.pcategory.value;
     var tags = event.target.tags.value;
     tags = tags.toLowerCase().trim().split(',');
 
-    Posts.update(this._id, {
-      $set: {
-        title,
-        body,
-        pcategoryId,
-        tags,
-      }
-    }, function (err, result) {
+    Meteor.call('edit.post', post_id, title, body, pcategoryId, tags, (err, result) => {
       if (err) {
-        console.log(err);
-        FlashMessages.sendError(err.toString());
+        console.log(err.reason);
+        FlashMessages.sendError(err.reason);
       } else {
         console.log(result);
         FlashMessages.sendSuccess("Post Edited");
         Router.go('/admin/posts');
       }
     });
-
 
     return false;
   },

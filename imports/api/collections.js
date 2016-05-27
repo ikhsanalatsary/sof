@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { attachSchema } from 'meteor/aldeed:collection2';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { check } from 'meteor/check';
 
 export const PostCategories = new Mongo.Collection('pcategories');
 
@@ -14,7 +13,12 @@ const postCategoriesSchema = new SimpleSchema({
   author: {
     type: String,
     autoValue() {
-      return Meteor.userId();
+      try {
+        let userId = Meteor.userId();
+        return userId;
+      } catch (error) {
+        return 'G8sjGAxw39oP4tJrH';
+      }
     },
   },
   createdAt: {
@@ -61,7 +65,12 @@ Posts.attachSchema(new SimpleSchema({
   author: {
     type: String,
     autoValue() {
-      return Meteor.userId();
+      try {
+        let userId = Meteor.userId();
+        return userId;
+      } catch (error) {
+        return 'G8sjGAxw39oP4tJrH';
+      }
     },
   },
   createdAt: {

@@ -44,40 +44,15 @@ Template.addProject.events({
     const projectImage = target.projectImage.value;
     console.log(projectImage);
 
-    if (projectImage !== '') {
-      Projects.insert({
-        name,
-        description,
-        client,
-        type,
-        projectDate,
-        projectImage
-      }, function(err, _id) {
-        if (!err) {
-          console.log(_id + ' image');
-          FlashMessages.sendSuccess("Projects Added");
-          Router.go('/admin/projects');
-        } else {
-          FlashMessages.sendError(err.toString());
-        }
-      });
-    } else {
-      Projects.insert({
-        name,
-        description,
-        client,
-        type,
-        projectDate
-      },function(err, _id) {
-        if (!err) {
-          console.log(_id + ' noimage');
-          FlashMessages.sendSuccess("Projects Added without upload image");
-          Router.go('/admin/projects');
-        } else {
-          FlashMessages.sendError(err.toString());
-        }
-      });
-    }
+    Meteor.call('create.project', name, projectDate, client, type, description, projectImage, (err, result) => {
+      if (!err) {
+        FlashMessages.sendSuccess("Projects Added");
+        Router.go('/admin/projects');
+      } else {
+        FlashMessages.sendError(err.reason);
+        console.error(err.reason);
+      }
+    });
   },
   'click .reload'() {
     location.reload(true);
@@ -98,6 +73,7 @@ Template.editProject.events({
   'submit .edit_project_form'(event) {
     event.preventDefault();
 
+    const project_id = this._id;
     const target = event.target;
     const name = target.name.value;
     const projectDate = target.projectDate.value;
@@ -107,44 +83,15 @@ Template.editProject.events({
     const projectImage = target.projectImage.value;
     console.log(projectImage);
 
-    if (projectImage !== '') {
-      Projects.update(this._id, {
-        $set: {
-          name,
-          description,
-          client,
-          type,
-          projectDate,
-          projectImage,
-        }
-      }, function(err, num) {
-        if (!err) {
-          console.log(num + 'field update image');
-          FlashMessages.sendSuccess("Projects edited!");
-          Router.go('/admin/projects');
-        } else {
-          FlashMessages.sendError(err.toString());
-        }
-      });
-    } else {
-      Projects.update(this._id, {
-        $set: {
-          name,
-          description,
-          client,
-          type,
-          projectDate,
-        }
-      },function(err, num) {
-        if (!err) {
-          console.log(num + 'field update noimage');
-          FlashMessages.sendSuccess("Projects edited without upload image");
-          Router.go('/admin/projects');
-        } else {
-          FlashMessages.sendError(err.toString());
-        }
-      });
-    }
+    Meteor.call('edit.project',project_id, name, projectDate, client, type, description, projectImage, (err, result) => {
+      if (!err) {
+        FlashMessages.sendSuccess("Projects Edited");
+        Router.go('/admin/projects');
+      } else {
+        FlashMessages.sendError(err.reason);
+        console.error(err.reason);
+      }
+    });
   },
   'click .reload'() {
     location.reload(true);
@@ -182,11 +129,13 @@ Template.listProject.events({
     },
       (isConfirm) => {
         if (isConfirm) {
-          Projects.remove(project_id, function(err) {
+          Meteor.call('delete.project', project_id, (err, result) => {
             if (!err) {
+              FlashMessages.sendSuccess("Project deleted");
               swal("Success", "Your project deleted!", "success");
             } else {
-              swal("Error!", err.toString(), "error");
+              FlashMessages.sendError(err.reason);
+              swal("Error!", err.reason, "error");
             }
           });
         } else {
