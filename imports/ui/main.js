@@ -4,7 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
 import { FlashMessages } from 'meteor/mrt:flash-messages';
 
-import { Posts } from '../api/collections.js';
+import { Posts, Projects } from '../api/collections.js';
 
 import './layout.html';
 import './navbar.html';
@@ -67,6 +67,11 @@ Template.home.onRendered(function() {
       });
       c.stop();
     }
+    if (Projects.find().count() > 0) {
+      _this.$('#mixed-items').mixItUp();
+      c.stop();
+    }
+
   });
 });
 

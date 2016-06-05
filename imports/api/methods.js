@@ -8,6 +8,8 @@ Meteor.methods({
   'create.pcategory'(name) {
     check(name, String);
 
+    const author = this.userId;
+
     var category = {
       name
     }

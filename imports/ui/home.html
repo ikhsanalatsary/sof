@@ -124,62 +124,21 @@
             </ul>
           </div>
           <div class="recent-work-pic">
+
             <ul id="mixed-items">
+              {{#each projects}}
               <li class="mix category-1 col-md-4 col-xs-6" data-my-order="1">
-                <a class="example-image-link" href="img/work1.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work1.jpg" alt="">
+                <a class="example-image-link" href="{{projectImage}}" data-lightbox="example-set">
+                  <img class="img-responsive" src="{{projectImage}}" alt="">
                   <div class="overlay">
                       <h3>Web design</h3>
                       <i class="ion-ios-plus-empty"></i>
                   </div>
                 </a>
               </li>
-              <li class="mix category-2 col-md-4 col-xs-6" data-my-order="2">
-                <a class="example-image-link" href="img/work2.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work2.jpg" alt="">
-                  <div class="overlay">
-                    <h3>Web design</h3>
-                    <i class="ion-ios-plus-empty"></i>
-                  </div>
-                </a>
-              </li>
-              <li class="mix category-1 col-md-4 col-xs-6" data-my-order="3">
-                <a class="example-image-link" href="img/work3.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work3.jpg" alt="">
-                  <div class="overlay">
-                    <h3>Web design</h3>
-                    <i class="ion-ios-plus-empty"></i>
-                  </div>
-                </a>
-              </li>
-              <li class="mix category-2 col-md-4 col-xs-6" data-my-order="4">
-                <a class="example-image-link" href="img/work4.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work4.jpg" alt="">
-                  <div class="overlay">
-                    <h3>Web design</h3>
-                    <i class="ion-ios-plus-empty"></i>
-                  </div>
-                </a>
-              </li>
-              <li class="mix category-1 col-md-4 col-xs-6" data-my-order="5">
-                <a class="example-image-link" href="img/work5.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work5.jpg" alt="">
-                  <div class="overlay">
-                    <h3>Web design</h3>
-                    <i class="ion-ios-plus-empty"></i>
-                  </div>
-                </a>
-              </li>
-              <li class="mix category-2 col-md-4 col-xs-6" data-my-order="6">
-                <a class="example-image-link" href="img/work6.jpg" data-lightbox="example-set">
-                  <img class="img-responsive" src="img/work6.jpg" alt="">
-                  <div class="overlay">
-                    <h3>Web design</h3>
-                    <i class="ion-ios-plus-empty"></i>
-                  </div>
-                </a>
-              </li>
+              {{/each}}
             </ul>
+
           </div>
         </div>
       </div>

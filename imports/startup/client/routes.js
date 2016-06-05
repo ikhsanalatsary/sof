@@ -157,28 +157,25 @@ Router.route('/admin/projects/:_id/edit', {
   }
 });
 
-Router.route('admin/pcategory/', {
+Router.route('admin/pcategory/:page?', {
   name: 'list-pcategories',
   template: 'listPcategories',
   layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
-      postCategories: PostCategories.find({}, {sort: {updatedAt: -1}})
+      postCategories: PostCategories.findFromPublication('pcategories')
     }
     return templateData;
-  },
-  subscriptions() {
-    return Meteor.subscribe('pcategories');
   }
 });
 
-Router.route('/admin/pcategory/add', {
+Router.route('/admin/pcategory/add/new', {
   name: 'add-pcategory',
   template: 'addPcategory',
   layoutTemplate: 'adminLayout',
   onBeforeAction() {
     if (!Meteor.userId()) {
-    // if the user is not logged in, render the Login template
+    // if the user is not loggedin, render the Login template
     this.render('Login');
     } else {
       // otherwise don't hold up the rest of hooks or our route/action function
@@ -207,7 +204,7 @@ Router.route('/admin/pcategory/:_id/edit', {
     }
   },
   subscriptions() {
-    return Meteor.subscribe('pcategories');
+    return Meteor.subscribe('editPcategory');
   }
 });
 

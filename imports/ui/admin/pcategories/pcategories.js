@@ -16,6 +16,31 @@ Template.registerHelper('formatDate', function(date) {
   return moment(date).format('DD-MM-YYYY, h:mm:ss a');
 });
 
+Template.listPcategories.onCreated(function () {
+  let template = this;
+  this.autorun(function () {
+    const skipCount = (currentPage() - 1) * Meteor.settings.public.recordsPerPage;
+    template.subscribe('pcategories', skipCount);
+  });
+});
+
+Template.listPcategories.helpers({
+  prevPage() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    return Router.routes['list-pcategories'].path({page: previousPage});
+  },
+  nextPage() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    return Router.routes['list-pcategories'].path({page: nextPage});
+  },
+	prevPageClass() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass() {
+    return hasMorePages() ? "" : "disabled";
+  }
+});
+
 Template.addPcategory.events({
   'submit .add-post-category'(event) {
     const target = event.target;
@@ -84,5 +109,14 @@ Template.listPcategories.events({
           return;
         }
       });
-  },
+  }
 });
+
+const hasMorePages = () => {
+	var totalPcategories = Counts.get('pcategoryCount');
+	return currentPage() * parseInt(Meteor.settings.public.recordsPerPage) < totalPcategories;
+}
+
+const currentPage = () => {
+	return parseInt(Router.current().params.page) || 1;
+}
