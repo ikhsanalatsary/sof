@@ -28,13 +28,13 @@ Router.route('/', {
   },
 });
 
-Router.route('/admin/posts', {
+Router.route('/admin/posts/:page?', {
   name: 'list-post',
   template: 'listPost',
   layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
-      posts: Posts.find({}, {sort: {updatedAt: -1}})
+      posts: Posts.findFromPublication('posts')
     }
     return templateData;
   },
@@ -47,13 +47,10 @@ Router.route('/admin/posts', {
       // from running
       this.next();
     }
-  },
-  subscriptions() {
-    return Meteor.subscribe('posts');
-  },
+  }
 });
 
-Router.route('/admin/posts/add', {
+Router.route('/admin/posts/add/new', {
   name: 'add-post',
   template: 'addPost',
   layoutTemplate: 'adminLayout',
@@ -66,7 +63,7 @@ Router.route('/admin/posts/add', {
     }
   },
   subscriptions() {
-    return Meteor.subscribe('pcategories');
+    return Meteor.subscribe('editPcategory');
   },
 });
 
@@ -89,17 +86,17 @@ Router.route('/admin/posts/:_id/edit', {
     }
   },
   subscriptions() {
-    return [Meteor.subscribe('posts'), Meteor.subscribe('pcategories')];
+    return [Meteor.subscribe('editPosts'), Meteor.subscribe('editPcategory')];
   }
 });
 
-Router.route('/admin/projects', {
+Router.route('/admin/projects/:page?', {
   name: 'list-project',
   template: 'listProject',
   layoutTemplate: 'adminLayout',
   data() {
     let templateData = {
-      projects: Projects.find({}, {sort: {updatedAt: -1}})
+      projects: Projects.findFromPublication('projects')
     }
     return templateData;
   },
@@ -112,13 +109,10 @@ Router.route('/admin/projects', {
       // from running
       this.next();
     }
-  },
-  subscriptions() {
-    return Meteor.subscribe('projects');
   }
 });
 
-Router.route('/admin/projects/add', {
+Router.route('/admin/projects/add/new', {
   name: 'add-project',
   template: 'addProject',
   layoutTemplate: 'adminLayout',
@@ -153,7 +147,7 @@ Router.route('/admin/projects/:_id/edit', {
     }
   },
   subscriptions() {
-    return Meteor.subscribe('projects');
+    return Meteor.subscribe('editProject');
   }
 });
 

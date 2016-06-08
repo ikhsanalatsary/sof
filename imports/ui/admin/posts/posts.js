@@ -28,6 +28,31 @@ Template.registerHelper('categoryName', function(pcategoryId) {
   return name;
 });
 
+Template.listPost.onCreated(function() {
+  let template = this;
+  this.autorun(function () {
+    const skipCount = (currentPage() - 1) * Meteor.settings.public.recordsPerPage;
+    template.subscribe('posts', skipCount);
+  });
+});
+
+Template.listPost.helpers({
+  prevPage() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    return Router.routes['list-post'].path({page: previousPage});
+  },
+  nextPage() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    return Router.routes['list-post'].path({page: nextPage});
+  },
+	prevPageClass() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass() {
+    return hasMorePages() ? "" : "disabled";
+  }
+});
+
 // Render Template
 Template.addPost.onRendered(function() {
   require('filepicker-js');
@@ -185,3 +210,12 @@ Template.editPost.events({
     return false;
   }
 });
+
+const hasMorePages = () => {
+	var totalPosts = Counts.get('postCount');
+	return currentPage() * parseInt(Meteor.settings.public.recordsPerPage) < totalPosts;
+}
+
+const currentPage = () => {
+	return parseInt(Router.current().params.page) || 1;
+}

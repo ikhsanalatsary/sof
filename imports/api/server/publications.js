@@ -29,11 +29,50 @@ if (Meteor.isServer) {
     return PostCategories.find();
   });
 
-  Meteor.publish('posts', function publications() {
+  FindFromPublication.publish('posts', function publications(skipCount) {
+    Meteor._sleepForMs(500);
+    const positiveIntegerCheck = Match.Where(function(x) {
+      check(x, Match.Integer);
+      return x >= 0;
+    });
+
+    check(skipCount, positiveIntegerCheck);
+
+    Counts.publish(this, 'postCount', Posts.find(), {
+      noReady: true
+    });
+
+    return Posts.find({}, {
+      limit: parseInt(Meteor.settings.public.recordsPerPage),
+      skip:skipCount
+    });
+  });
+
+  Meteor.publish('editPosts', function publications() {
     return Posts.find();
   });
 
-  Meteor.publish('projects', function publications() {
+
+  FindFromPublication.publish('projects', function publications(skipCount) {
+    Meteor._sleepForMs(500);
+    const positiveIntegerCheck = Match.Where(function(x) {
+      check(x, Match.Integer);
+      return x >= 0;
+    });
+
+    check(skipCount, positiveIntegerCheck);
+
+    Counts.publish(this, 'projectCount', Projects.find(), {
+      noReady: true
+    });
+
+    return Projects.find({}, {
+      limit: parseInt(Meteor.settings.public.recordsPerPage),
+      skip:skipCount
+    });
+  });
+
+  Meteor.publish('editProjects', function publications() {
     return Projects.find();
   });
 

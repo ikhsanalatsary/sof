@@ -2,7 +2,7 @@
 
 ### Todo
 * ~~create category post~~ - Done
-* create pagination
+* ~~create pagination~~ - Done
 * ~~create side nav menu for admin only~~ - Done
 * ~~create seed data~~ - Done
 * show post to user

@@ -15,6 +15,31 @@ Template.registerHelper('formatDate', function(date) {
   return moment(date).format('DD-MM-YYYY, h:mm:ss a');
 });
 
+Template.listProject.onCreated(function() {
+  let template = this;
+  this.autorun(function() {
+    const skipCount = (currentPage() - 1) * Meteor.settings.public.recordsPerPage;
+    template.subscribe('projects', skipCount);
+  })
+});
+
+Template.listProject.helpers({
+  prevPage() {
+    var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
+    return Router.routes['list-project'].path({page: previousPage});
+  },
+  nextPage() {
+    var nextPage = hasMorePages() ? currentPage() + 1 : currentPage();
+    return Router.routes['list-project'].path({page: nextPage});
+  },
+	prevPageClass() {
+    return currentPage() <= 1 ? "disabled" : "";
+  },
+  nextPageClass() {
+    return hasMorePages() ? "" : "disabled";
+  }
+});
+
 Template.addProject.onRendered(function() {
   require('filepicker-js');
   filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
@@ -150,3 +175,12 @@ Template.listProject.events({
     return false;
   },
 });
+
+const hasMorePages = () => {
+	var totalProjects = Counts.get('projectCount');
+	return currentPage() * parseInt(Meteor.settings.public.recordsPerPage) < totalProjects;
+}
+
+const currentPage = () => {
+	return parseInt(Router.current().params.page) || 1;
+}
