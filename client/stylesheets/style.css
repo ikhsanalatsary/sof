@@ -1341,3 +1341,15 @@ footer p {
 .fp__overlay {
   z-index: 65540 !important;
 }
+
+li.tag {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f6f6f6;
+  margin: 10px 5px 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  line-height: 20px;
+  font-family: "Montserrat",sans-serif;
+}

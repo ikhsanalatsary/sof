@@ -1,12 +1,12 @@
-<template id="post">
+<template name="post">
   <div class="wrapper">
 		<section id="global-header">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="block text-center">
-							<h1>BIG HEADLINE FOR BLOG</h1>
-							<p>13 MARCH 2015 / BY SARA SMITH</p>
+							<h1>{{title}}</h1>
+							<p>{{indoDate createdAt}} / BY SARA SMITH</p>
 						</div>
 					</div>
 				</div>
@@ -29,24 +29,14 @@
 							</div>
 						</div>
 						<div class="block">
-							<span class="first-child-span">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-							<p class="first-child">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>
-							<blockquote>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>
-								<div class="footer">
-									Jason Santa Maria
-								</div>
-							</blockquote>
-							<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</span>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p><br>
-							<div class="tags">
-								<h5>Tags</h5>
-								<a href="#">Advertisement</a>,
-								<a href="#">Smart Quotes</a>,
-								<a href="#">Unique</a>,
-								<a href="#">Design</a>
-							</div>
+							{{{body}}}
+              <h5>Tag</h5>
+              <ul>
+                {{#each tags}}
+                  <li class="tag">{{this}}</li>
+                {{/each}}
+              </ul>
+
 							<div class="blog-comment">
 								<a class="comment-img" href="#"><img class="img-responsive" src="img/avtar6.jpg" alt=""></a>
 								<div class="comment-text">
@@ -121,12 +111,9 @@
 							<span>Categories</span>
 							<div class="widget-body">
 								<ul class="category-list">
-								    <li><a href="#">Web Design</a></li>
-								    <li><a href="#">Featured Blog</a></li>
-								    <li><a href="#">Photography Idea</a></li>
-								    <li><a href="#">Design Tutorials</a></li>
-								    <li><a href="#">News and Events</a></li>
-								    <li><a href="#">Arts and Entertainment</a></li>
+                  {{#each pcategories}}
+								    <li><a href="#">{{name}}</a></li>
+                  {{/each}}
 								</ul>
 							</div>
 						</div>
@@ -158,7 +145,7 @@
 						<div class="widget sidebar-tags">
 							<span>Tags</span>
 							<div class="widget-body">
-								<a href="#">Advertisement</a>
+								<a href="#">Development</a>
 								<a href="#">Fashion</a>
 								<a href="#">Sea</a>
 								<a href="#">Forest</a>

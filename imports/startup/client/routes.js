@@ -28,6 +28,15 @@ Router.route('/', {
   },
 });
 
+Router.route('/post/:_id', {
+  name: 'post',
+  template: 'post',
+  data() {
+    post_id = this.params._id;
+    return Posts.findOne({_id: post_id})
+  }
+});
+
 Router.route('/admin/posts/:page?', {
   name: 'list-post',
   template: 'listPost',
@@ -201,7 +210,6 @@ Router.route('/admin/pcategory/:_id/edit', {
     return Meteor.subscribe('editPcategory');
   }
 });
-
 
 Router.route('/admin', {
   name: 'login',

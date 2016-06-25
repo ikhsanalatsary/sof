@@ -4,12 +4,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
 import { FlashMessages } from 'meteor/mrt:flash-messages';
 
-import { Posts, Projects } from '../api/collections.js';
+import { Posts, Projects, PostCategories } from '../api/collections.js';
 
 import './layout.html';
 import './navbar.html';
 import './login.html';
 import './home.html';
+import './post.html';
 import './footer.html';
 
 Template.registerHelper('indoDate', function(date) {
@@ -26,8 +27,32 @@ Template.registerHelper('summary', function(body) {
   return body = body.slice(0, -1000);
 });
 
+Template.registerHelper('eachTags', function(tags) {
+  console.log(tags.toString());
+  return tags.forEach(function(tag) {
+    console.log(tag);
+    return tag;
+  });
+});
+
 Template.home.onCreated(function subscriptions() {
-  return [Meteor.subscribe('posts'), Meteor.subscribe('projects')];
+  return [Meteor.subscribe('editPosts'), Meteor.subscribe('editProjects')];
+});
+
+Template.post.onCreated(function subscriptions() {
+  let template = this;
+  template.autorun(function() {
+    return [
+      template.subscribe('editPcategory'),
+      template.subscribe('editPosts')
+    ];
+  });
+})
+
+Template.post.helpers({
+  pcategories() {
+    return PostCategories.find();
+  }
 });
 
 Template.body.onRendered(function() {
