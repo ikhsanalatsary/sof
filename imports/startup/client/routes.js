@@ -3,7 +3,7 @@ import { Router } from 'meteor/iron:router';
 import { _ } from 'meteor/underscore';
 import { Template } from 'meteor/templating';
 
-import { Posts, Projects, PostCategories } from '../../api/collections.js';
+import { Posts, Projects, PostCategories, Tags } from '../../api/collections.js';
 
 import '../../ui/main.js';
 import '../../ui/admin';
@@ -95,7 +95,7 @@ Router.route('/admin/posts/:_id/edit', {
     }
   },
   subscriptions() {
-    return [Meteor.subscribe('editPosts'), Meteor.subscribe('editPcategory')];
+    return [Meteor.subscribe('editPosts'), Meteor.subscribe('editPcategory'), Meteor.subscribe('editTag')];
   }
 });
 
@@ -211,7 +211,68 @@ Router.route('/admin/pcategory/:_id/edit', {
   }
 });
 
+Router.route('/admin/tag', {
+  name: 'list-tags',
+  template: 'listTags',
+  layoutTemplate: 'adminLayout',
+  data() {
+    let templateData = {
+      tags: Tags.findFromPublication('tags')
+    }
+    return templateData;
+  },
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+    // if the user is not logged in, render the Login template
+    this.render('Login');
+    } else {
+      // otherwise don't hold up the rest of hooks or our route/action function
+      // from running
+      this.next();
+    }
+  }
+});
+
+Router.route('/admin/tag/add/new', {
+  name: 'add-tag',
+  template: 'addTag',
+  layoutTemplate: 'adminLayout',
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+    // if the user is not loggedin, render the Login template
+    this.render('Login');
+    } else {
+      // otherwise don't hold up the rest of hooks or our route/action function
+      // from running
+      this.next();
+    }
+  }
+});
+
+Router.route('/admin/tag/:_id/edit', {
+  name: 'edit-tag',
+  template: 'editTag',
+  layoutTemplate: 'adminLayout',
+  data() {
+    const tag_id = this.params._id;
+    return Tags.findOne({_id: tag_id});
+  },
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+    // if the user is not logged in, render the Login template
+    this.render('Login');
+    } else {
+      // otherwise don't hold up the rest of hooks or our route/action function
+      // from running
+      this.next();
+    }
+  },
+  subscriptions() {
+    return Meteor.subscribe('editTags');
+  }
+});
+
 Router.route('/admin', {
   name: 'login',
   template: 'login'
-})
+});

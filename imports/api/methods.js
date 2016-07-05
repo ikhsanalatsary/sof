@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
-import { PostCategories, Posts, Projects } from './collections.js';
+import { PostCategories, Posts, Projects, Tags } from './collections.js';
 
 Meteor.methods({
   // Post categories Method
@@ -141,5 +141,30 @@ Meteor.methods({
     check(projectId, String);
 
     Projects.remove(projectId);
+  },
+  // Tags Method
+  'create.tag'(tag) {
+    check(tag, String);
+
+    if (tag === "") {
+      return;
+    }
+
+    Tags.insert({ tag });
+  },
+  'delete.tag'(tagId) {
+    check(tagId, String);
+
+    Tags.remove(tagId);
+  },
+  'edit.tag'(tag, tagId) {
+    check(tag, String);
+    check(tagId, String);
+
+    Tags.update(tagId, {
+      $set: {
+        tag
+      }
+    });
   }
 });

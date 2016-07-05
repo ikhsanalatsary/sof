@@ -7,6 +7,7 @@ import './sidenav.html';
 import './projects/projects.js';
 import './posts/posts.js';
 import './pcategories/pcategories.js';
+import './tags/tags.js';
 
 Template.adminLayout.onRendered(function() {
   var trigger = $('.hamburger'),

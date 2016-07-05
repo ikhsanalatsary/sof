@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Counts } from 'meteor/tmeasday:publish-counts';
 import { FindFromPublication } from 'meteor/percolate:find-from-publication';
-import { PostCategories, Posts, Projects } from '../collections.js';
+import { PostCategories, Posts, Projects, Tags } from '../collections.js';
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -76,4 +76,26 @@ if (Meteor.isServer) {
     return Projects.find();
   });
 
+  FindFromPublication.publish('tags', function publications(skipCount) {
+    Meteor._sleepForMs(500);
+    const positiveIntegerCheck = Match.Where(function(x) {
+      check(x, Match.Integer);
+      return x >= 0;
+    });
+
+    check(skipCount, positiveIntegerCheck);
+
+    Counts.publish(this, 'tagsCount', Tags.find(), {
+      noReady: true
+    });
+
+    return Tags.find({}, {
+      limit: parseInt(Meteor.settings.public.recordsPerPage),
+      skip:skipCount
+    });
+  });
+
+  Meteor.publish('editTags', function publications() {
+    return Tags.find();
+  });
 }

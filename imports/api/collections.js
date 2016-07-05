@@ -39,7 +39,7 @@ const postCategoriesSchema = new SimpleSchema({
       return new Date();
     },
   },
-})
+});
 
 PostCategories.attachSchema(postCategoriesSchema);
 
@@ -152,3 +152,43 @@ Projects.attachSchema(new SimpleSchema({
     },
   },
 }));
+
+export const Tags = new Mongo.Collection('tags');
+
+const TagsSchema = new SimpleSchema({
+  tag: {
+    type: String,
+    max: 100,
+  },
+  author: {
+    type: String,
+    autoValue() {
+      try {
+        let userId = Meteor.userId();
+        return userId;
+      } catch (error) {
+        return 'G8sjGAxw39oP4tJrH';
+      }
+    },
+  },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date()};
+      } else {
+        this.unset();  // Prevent user from supplying their own value
+      }
+    }
+  },
+  updatedAt: {
+    type: Date,
+    autoValue() {
+      return new Date();
+    },
+  },
+});
+
+Tags.attachSchema(TagsSchema);

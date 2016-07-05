@@ -7,7 +7,7 @@ import { FlashMessages } from 'meteor/mrt:flash-messages';
 import { moment } from 'meteor/momentjs:moment';
 import swal from 'sweetalert';
 
-import { Posts, PostCategories } from '../../../api/collections.js';
+import { Posts, PostCategories, Tags } from '../../../api/collections.js';
 
 import '../../../../node_modules/sweetalert/dist/sweetalert.css';
 import './add-post.html';
@@ -140,6 +140,17 @@ Template.addPost.events({
     location.reload(true);
 
     return false;
+  },
+  'click #myModal'(event) {
+    const array = [];
+    var tags = event.target.tag.value;
+    console.log(event.target);
+    tags = tags.toLowerCase().trim().split(',');
+
+    console.log(tags);
+
+
+    return false;
   }
 });
 
@@ -219,3 +230,5 @@ const hasMorePages = () => {
 const currentPage = () => {
 	return parseInt(Router.current().params.page) || 1;
 }
+
+$('#myModal').modal();
