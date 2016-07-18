@@ -72,7 +72,7 @@ Router.route('/admin/posts/add/new', {
     }
   },
   subscriptions() {
-    return Meteor.subscribe('editPcategory');
+    return [Meteor.subscribe('editPcategory'), Meteor.subscribe('editTags')];
   },
 });
 
@@ -95,7 +95,7 @@ Router.route('/admin/posts/:_id/edit', {
     }
   },
   subscriptions() {
-    return [Meteor.subscribe('editPosts'), Meteor.subscribe('editPcategory'), Meteor.subscribe('editTag')];
+    return [Meteor.subscribe('editPosts'), Meteor.subscribe('editPcategory'), Meteor.subscribe('editTags')];
   }
 });
 
@@ -211,7 +211,7 @@ Router.route('/admin/pcategory/:_id/edit', {
   }
 });
 
-Router.route('/admin/tag', {
+Router.route('/admin/tag/:page?', {
   name: 'list-tags',
   template: 'listTags',
   layoutTemplate: 'adminLayout',

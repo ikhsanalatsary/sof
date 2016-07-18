@@ -40,3 +40,5 @@ matteodem:server-session
 tmeasday:publish-counts
 sacha:spin
 percolate:find-from-publication
+deanius:promise
+jesperwe:bootstrap-select

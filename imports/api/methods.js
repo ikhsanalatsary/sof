@@ -41,35 +41,29 @@ Meteor.methods({
     });
   },
   // Posts Method
-  'create.post'(title, body, pcategoryId, tags) {
-    check(title, String);
-    check(body, String);
-    check(pcategoryId, String);
-    check(tags, [String]);
-
-    var posting = {
-      title,
-      body,
-      pcategoryId,
-      tags,
+  'create.post'(post) {
+    var pattern = {
+      title: String,
+      body: String,
+      pcategoryId: String,
+      tags: [String]
     }
+    check(post, pattern);
 
-    Posts.insert(posting);
+    Posts.insert(post);
   },
-  'edit.post'(postId, title, body, pcategoryId, tags) {
+  'edit.post'(postId, post) {
+    var pattern = {
+      title: String,
+      body: String,
+      pcategoryId: String,
+      tags: [String]
+    }
+    check(post, pattern);
     check(postId, String);
-    check(title, String);
-    check(body, String);
-    check(pcategoryId, String);
-    check(tags, [String]);
 
     Posts.update(postId, {
-      $set: {
-        title,
-        body,
-        pcategoryId,
-        tags,
-      }
+      $set: post
     });
   },
   'delete.post'(postId) {
@@ -143,14 +137,12 @@ Meteor.methods({
     Projects.remove(projectId);
   },
   // Tags Method
-  'create.tag'(tag) {
-    check(tag, String);
+  'create.tag'(tags) {
+    check(tags, [String]);
 
-    if (tag === "") {
-      return;
-    }
-
-    Tags.insert({ tag });
+    return tags.forEach((tag) => {
+      return Tags.insert({ tag });
+    });
   },
   'delete.tag'(tagId) {
     check(tagId, String);

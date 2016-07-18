@@ -40,10 +40,16 @@ Template.listTags.helpers({
 Template.addTag.events({
   'submit .add-tag'(event) {
     const target = event.target;
-    const tag = target.tag.value;
-    console.log(tag);
+    const val = target.tag.value;
 
-    Meteor.call('create.tag', tag, (error, result) => {
+    if (val === "") {
+      return;
+    }
+
+    const tags = val.toLowerCase().trim().split(',');
+    console.log(tags);
+
+    Meteor.call('create.tag', tags, (error, result) => {
       if (error) {
         console.log(error.reason);
         FlashMessages.sendError(error.reason);
@@ -80,7 +86,7 @@ Template.listTags.events({
     const tag_id = this._id;
     swal({
         title: "Are you sure?",
-        text: "You will delete this Post Category!",
+        text: "You will delete this tag!",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: '#DD6B55',
@@ -97,8 +103,8 @@ Template.listTags.events({
               FlashMessages.sendError(error.reason);
               swal("Error!", error.reason, "error");
             } else {
-              FlashMessages.sendSuccess("Post category deleted");
-              swal("Success", "Your post category deleted!", "success");
+              FlashMessages.sendSuccess("Tag deleted");
+              swal("Success", "Your tag deleted!", "success");
             }
           });
         } else {
@@ -110,8 +116,8 @@ Template.listTags.events({
 });
 
 const hasMorePages = () => {
-	var totalPcategories = Counts.get('tagsCount');
-	return currentPage() * parseInt(Meteor.settings.public.recordsPerPage) < totalPcategories;
+	var totalTags = Counts.get('tagsCount');
+	return currentPage() * parseInt(Meteor.settings.public.recordsPerPage) < totalTags;
 }
 
 const currentPage = () => {
