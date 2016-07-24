@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Projects, PostCategories, Posts } from '../../api/collections.js';
+import { Projects, PostCategories, Posts, Tags } from '../../api/collections.js';
 
 if (Projects.find().count() === 0) {
   let projectsDummy = [
@@ -156,6 +156,71 @@ if (PostCategories.find().count() === 0) {
   });
 }
 
+if (Tags.find().count() === 0) {
+  let tagsDummy = [
+    {
+    	"_id" : "iTRY6YNqaynZGTFiR",
+    	"tag" : "nodejs"
+    },
+    {
+    	"_id" : "NeJavuHZcz3rc5c64",
+    	"tag" : "angularjs"
+    },
+    {
+    	"_id" : "C3SjsfiaAMmTYYqky",
+    	"tag" : "reactjs"
+    },
+    {
+    	"_id" : "DpqQQ5HHPFTGxpv5n",
+    	"tag" : "riotjs"
+    },
+    {
+    	"_id" : "MybTCCCeySMdbL49R",
+    	"tag" : "dev"
+    },
+    {
+    	"_id" : "TZwgNpiKzifWtis8w",
+    	"tag" : "program"
+    },
+    {
+    	"_id" : "cdSrMKga4rbCBnDpN",
+    	"tag" : "meteorjs"
+    },
+    {
+    	"_id" : "7g9HKXj9P9A6hMCsp",
+    	"tag" : "expressjs"
+    },
+    {
+    	"_id" : "d7SaPTngJPGvJDq6X",
+    	"tag" : "framework"
+    },
+    {
+    	"_id" : "G5gyvqjXjpEvb8g6c",
+    	"tag" : "library"
+    },
+    {
+    	"_id" : "mQDp834hMZnoXfv6F",
+    	"tag" : "pustaka"
+    },
+    {
+    	"_id" : "HTwx2hyHDGsCDotev",
+    	"tag" : "static"
+    },
+    {
+    	"_id" : "ZSTmHkeBchDLBSvzZ",
+    	"tag" : "template"
+    },
+    {
+    	"_id" : "crgzHSn5vmskqRa4j",
+    	"tag" : "html"
+    }
+  ];
+
+  tagsDummy.forEach((tag) => {
+    return Tags.insert(tag);
+  });
+}
+
 if (Posts.find().count() === 0) {
   let PostsDummy = [
     {
@@ -164,9 +229,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"200\" height=\"100\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "oNPkYArFWpYymx7Kv",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"iTRY6YNqaynZGTFiR",
+    		"crgzHSn5vmskqRa4j",
+    		"mQDp834hMZnoXfv6F"
     	]
     },
     {
@@ -175,9 +240,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "HieRFjio4f7ZSQGWD",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"NeJavuHZcz3rc5c64",
+    		"C3SjsfiaAMmTYYqky",
+    		"HTwx2hyHDGsCDotev"
     	]
     },
     {
@@ -186,9 +251,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "DsYY6zbrEMjbs8LZj",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"ZSTmHkeBchDLBSvzZ",
+    		"G5gyvqjXjpEvb8g6c",
+    		"mQDp834hMZnoXfv6F"
     	]
     },
     {
@@ -197,9 +262,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "wqE7gvrcp6wLXRjX7",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"DpqQQ5HHPFTGxpv5n",
+    		"mQDp834hMZnoXfv6F",
+    		"MybTCCCeySMdbL49R"
     	]
     },
     {
@@ -208,9 +273,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "gYEFN4N7KmaWue5mF",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"TZwgNpiKzifWtis8w",
+    		"cdSrMKga4rbCBnDpN",
+    		"7g9HKXj9P9A6hMCsp"
     	]
     },
     {
@@ -219,9 +284,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "Dv5JBYf45kFX38THm",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"7g9HKXj9P9A6hMCsp",
+    		"d7SaPTngJPGvJDq6X",
+    		"iTRY6YNqaynZGTFiR"
     	]
     },
     {
@@ -230,9 +295,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "5qBu7SBNcsSecchRX",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"crgzHSn5vmskqRa4j",
+    		"ZSTmHkeBchDLBSvzZ",
+    		"MybTCCCeySMdbL49R"
     	]
     },
     {
@@ -241,9 +306,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "4pf82GKiKPo3Kpr7u",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"cdSrMKga4rbCBnDpN",
+    		"NeJavuHZcz3rc5c64",
+    		"d7SaPTngJPGvJDq6X"
     	]
     },
     {
@@ -252,9 +317,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "ZTAtg35yhTFss6kKo",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"C3SjsfiaAMmTYYqky",
+    		"DpqQQ5HHPFTGxpv5n",
+    		"G5gyvqjXjpEvb8g6c"
     	]
     },
     {
@@ -263,9 +328,9 @@ if (Posts.find().count() === 0) {
     	"body" : "<p><span class=\"first-child-span\">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></p>\n<p class=\"first-child\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>\n<p class=\"first-child\"><img src=\"https://www.filestackapi.com/api/file/VJ672SnqQSacMXyqy8Ki\" alt=\"\" width=\"486\" height=\"243\" /></p>\n<blockquote>\n<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text.</p>\n<div class=\"footer\">Jason Santa Maria</div>\n</blockquote>",
     	"pcategoryId" : "fGX9zuApCe5P4ERzS",
     	"tags" : [
-    		"e",
-    		"q",
-    		"w"
+    		"mQDp834hMZnoXfv6F",
+    		"HTwx2hyHDGsCDotev",
+    		"crgzHSn5vmskqRa4j"
     	]
     }
   ];
