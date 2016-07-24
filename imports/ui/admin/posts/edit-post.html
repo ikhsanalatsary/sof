@@ -24,7 +24,7 @@
     <label for="Tags">Tags</label>
     <!-- <input type="text" class="form-control" name="tags" value="{{tags}}"> -->
     <select multiple name="tagName" class="selectpicker form-control">
-      <option value="{{tags}}" disabled selected> {{tags}} </option>
+      <option id="oldvals" value="{{tags}}" disabled selected> {{getTagName tags}} </option>
       {{#each showTag}}
         <option value="{{this._id}}">{{ tag }}</option>
       {{/each}}

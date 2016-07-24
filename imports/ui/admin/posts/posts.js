@@ -32,13 +32,10 @@ Template.registerHelper('categoryName', function(pcategoryId) {
 });
 
 Template.registerHelper('getTagName', function(arrTag) {
-  var arr = [];
-  return arrTag.forEach(function(tagId) {
-    var tagName = Tags.findOne(tagId);
-    var name = tagName && tagName.tag;
-    arr.push(name);
-    return arr;
-  });
+  if (typeof arrTag !== 'undefined') {
+    return getTagNames(arrTag);
+  }
+    return 'UNDEFINED';
 });
 
 Template.listPost.onCreated(function() {
@@ -56,6 +53,89 @@ Template.addPost.onCreated(function() {
   });
 });
 
+Template.editPost.onCreated(function() {
+  let template = this;
+  this.autorun(function () {
+    template.showTag = new ReactiveDict();
+  });
+});
+
+// Render Template
+var renderTimeout = false;
+Template.addPost.onRendered(function() {
+  const template = this;
+  template.autorun(function() {
+    template.$(function () {
+      tinymce.init({
+        selector: 'textarea',
+        plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table contextmenu paste"
+        ],
+        image_caption: true,
+        file_browser_callback: function(field_name, url, type, win) {
+          if(type =='image') {
+            filepicker.pick(function(Blob){
+              win.document.getElementById(field_name).value = Blob.url;
+              console.log(Blob.url);
+            });
+          }
+        },
+        skin_url: '/packages/teamon_tinymce/skins/lightgray',
+      });
+    });
+
+    template.tags = Tags.find({}).fetch();
+    if (renderTimeout !== false) {
+      Meteor.clearTimeout(renderTimeout);
+    }
+    renderTimeout = Meteor.setTimeout(function() {
+      template.$('.selectpicker').selectpicker("refresh");
+      renderTimeout = false;
+    }, 10);
+
+    template.showTag.set('tags', template.tags);
+  });
+});
+
+Template.editPost.onRendered(function() {
+  const template = this;
+  template.autorun(function() {
+    template.$(function () {
+      tinymce.init({
+        selector: 'textarea',
+        plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table contextmenu paste"
+        ],
+        image_caption: true,
+        file_browser_callback: function(field_name, url, type, win) {
+          if(type =='image') {
+            filepicker.pick(function(Blob){
+              win.document.getElementById(field_name).value = Blob.url;
+              console.log(Blob.url);
+            });
+          }
+        },
+        skin_url: '/packages/teamon_tinymce/skins/lightgray',
+      });
+    });
+    template.tags = Tags.find({}).fetch();
+    if (renderTimeout !== false) {
+      Meteor.clearTimeout(renderTimeout);
+    }
+    renderTimeout = Meteor.setTimeout(function() {
+      template.$('.selectpicker').selectpicker("refresh");
+      renderTimeout = false;
+    }, 10);
+
+    template.showTag.set('tags', template.tags);
+  });
+});
+
+// Template Helper
 Template.listPost.helpers({
   prevPage() {
     var previousPage = currentPage() === 1 ? 1 : currentPage() - 1;
@@ -73,81 +153,6 @@ Template.listPost.helpers({
   }
 });
 
-// Render Template
-var renderTimeout = false;
-Template.addPost.onRendered(function() {
-  const template = this;
-  template.autorun(function() {
-    tinymce.init({
-      selector: 'textarea',
-      plugins: [
-            "advlist autolink lists link image charmap print preview anchor",
-            "searchreplace visualblocks code fullscreen",
-            "insertdatetime media table contextmenu paste"
-      ],
-      image_caption: true,
-      file_browser_callback: function(field_name, url, type, win) {
-        if(type =='image') {
-          filepicker.pick(function(Blob){
-            win.document.getElementById(field_name).value = Blob.url;
-            console.log(Blob.url);
-          });
-        }
-      },
-      skin_url: '/packages/teamon_tinymce/skins/lightgray',
-    });
-    template.tags = Tags.find({}).fetch();
-    console.log(template.tags);
-    if (renderTimeout !== false) {
-      Meteor.clearTimeout(renderTimeout);
-    }
-    renderTimeout = Meteor.setTimeout(function() {
-      template.$('.selectpicker').selectpicker("refresh");
-      renderTimeout = false;
-    }, 10);
-
-    template.showTag.set('tags', template.tags);
-  });
-  // require('filepicker-js');
-  // filepicker.setKey("AXYh60O8qQ1SFWA3lvR4kz");
-});
-
-Template.editPost.onRendered(function() {
-  const template = this;
-  template.autorun(function() {
-    tinymce.init({
-      selector: 'textarea',
-      plugins: [
-            "advlist autolink lists link image charmap print preview anchor",
-            "searchreplace visualblocks code fullscreen",
-            "insertdatetime media table contextmenu paste"
-      ],
-      image_caption: true,
-      file_browser_callback: function(field_name, url, type, win) {
-        if(type =='image') {
-          filepicker.pick(function(Blob){
-            win.document.getElementById(field_name).value = Blob.url;
-            console.log(Blob.url);
-          });
-        }
-      },
-      skin_url: '/packages/teamon_tinymce/skins/lightgray',
-    });
-    // template.tags = Tags.find({}).fetch();
-    // console.log(template.tags);
-    if (renderTimeout !== false) {
-      Meteor.clearTimeout(renderTimeout);
-    }
-    renderTimeout = Meteor.setTimeout(function() {
-      template.$('.selectpicker').selectpicker("refresh");
-      renderTimeout = false;
-    }, 10);
-
-    // template.showTag.set('tags', template.tags);
-  });
-});
-
-// Template Helper
 Template.addPost.helpers({
   'pCategories'() {
     return PostCategories.find({});
@@ -162,17 +167,7 @@ Template.editPost.helpers({
     return PostCategories.find({});
   },
   'showTag'() {
-    return Tags.find();
-  },
-  'tagName'() {
-    const allTags = this.tags;
-    const arr = [];
-    return allTags.forEach(function(tagId) {
-      var tagName = Tags.findOne(tagId);
-      var name = tagName && tagName.tag;
-      arr.push(name);
-      return arr;
-    });
+    return Template.instance().showTag.get('tags');
   }
 });
 
@@ -273,9 +268,10 @@ Template.editPost.events({
     const title = event.target.title.value;
     const body = document.getElementById('edit').value;
     const pcategoryId = event.target.pcategory.value;
-    // var tags = event.target.tags.value;
-    // tags = tags.toLowerCase().trim().split(',');
-    var tags = $('.selectpicker').val();
+    var oldtags = $('#oldvals').val();
+    var newtags = $('.selectpicker').val();
+    var tags = oldtags.split(',');
+    tags = tags.concat(newtags);
 
     const posting = {
       title,
@@ -301,7 +297,6 @@ Template.editPost.events({
     event.preventDefault();
     var tag = $('#tag').val();
     const tags = tag.toLowerCase().trim().split(',');
-    console.log(template);
 
     Meteor.callPromise('create.tag', tags)
       .then((result) => {
@@ -330,3 +325,10 @@ const currentPage = () => {
 }
 
 $('#myModal').modal();
+
+function getTagNames(allTags) {
+  return allTags.map(function(tagId) {
+    var tagName = Tags.findOne(tagId);
+    return tagName.tag;
+  });
+}
