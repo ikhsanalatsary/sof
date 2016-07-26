@@ -31,9 +31,54 @@ Router.route('/', {
 Router.route('/post/:_id', {
   name: 'post',
   template: 'post',
+  waitOn() {
+    return [
+      Meteor.subscribe('editPcategory'),
+      Meteor.subscribe('editPosts'),
+      Meteor.subscribe('editTags'),
+    ];
+  },
   data() {
     post_id = this.params._id;
     return Posts.findOne({_id: post_id})
+  }
+});
+
+Router.route('/post-tag/:tag', {
+  name: 'postByTag',
+  waitOn:function(){
+    const tagObj = Tags.findOne({tag: this.params.tag});
+    const tagId = tagObj && tagObj._id;
+    return [
+      Meteor.subscribe('editTags'),
+      Meteor.subscribe('postsByTag', tagId)
+    ];
+  },
+  data: function() {
+    const tagObj = Tags.findOne({tag: this.params.tag});
+    const tagId = tagObj && tagObj._id;
+    return Posts.find({
+      tags:tagId
+    });
+  }
+});
+
+Router.route('/post-category/:pcategory', {
+  name: 'postByCategory',
+  waitOn:function(){
+    const pCategoryObj = PostCategories.findOne({name: this.params.pcategory});
+    const pCategoryId = pCategoryObj && pCategoryObj._id;
+    return [
+      Meteor.subscribe('editPcategory'),
+      Meteor.subscribe('postsByCategory', pCategoryId)
+    ];
+  },
+  data: function() {
+    const pCategoryObj = PostCategories.findOne({name: this.params.pcategory});
+    const pcategoryId = pCategoryObj && pCategoryObj._id;
+    return Posts.find({
+      pcategoryId
+    });
   }
 });
 

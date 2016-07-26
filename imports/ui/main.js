@@ -4,7 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { $ } from 'meteor/jquery';
 import { FlashMessages } from 'meteor/mrt:flash-messages';
 
-import { Posts, Projects, PostCategories } from '../api/collections.js';
+import { Posts, Projects, PostCategories, Tags } from '../api/collections.js';
 
 import './layout.html';
 import './navbar.html';
@@ -27,31 +27,23 @@ Template.registerHelper('summary', function(body) {
   return body = body.slice(0, -1000);
 });
 
-Template.registerHelper('eachTags', function(tags) {
-  console.log(tags.toString());
-  return tags.forEach(function(tag) {
-    console.log(tag);
-    return tag;
-  });
-});
-
 Template.home.onCreated(function subscriptions() {
   return [Meteor.subscribe('editPosts'), Meteor.subscribe('editProjects')];
 });
 
-Template.post.onCreated(function subscriptions() {
-  let template = this;
-  template.autorun(function() {
-    return [
-      template.subscribe('editPcategory'),
-      template.subscribe('editPosts')
-    ];
-  });
-})
-
 Template.post.helpers({
   pcategories() {
     return PostCategories.find();
+  },
+  tagNames() {
+    const taglist = this.tags;
+    return taglist.map(function(tagId) {
+      const query = Tags.findOne({_id: tagId});
+      return query;
+    });
+  },
+  Tags() {
+    return Tags.find({});
   }
 });
 
@@ -133,6 +125,5 @@ Template.layout.events({
     return false
   },
 });
-
 
 moment().format('ll');

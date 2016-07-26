@@ -1342,9 +1342,18 @@ footer p {
   z-index: 65540 !important;
 }
 
-li.tag {
+#blog-left .post-tag span{
+  margin-bottom: 2%;
+  display: block;
+  font-size: 18px;
+  line-height: 27px;
+  color: #333;
+}
+
+.tag a {
   display: inline-block;
   padding: 10px;
+  color: #373737;
   background-color: #f6f6f6;
   margin: 10px 5px 20px;
   text-transform: uppercase;
@@ -1352,4 +1361,11 @@ li.tag {
   font-size: 11px;
   line-height: 20px;
   font-family: "Montserrat",sans-serif;
+}
+
+.tag a:hover {
+  background-color: #000;
+  color: #fff;
+  -webkit-transition-duration: .2s;
+  -webkit-transition-timing-function: ease-in-out;
 }

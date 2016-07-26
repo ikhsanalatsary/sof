@@ -26,7 +26,7 @@ Template.registerHelper('categoryName', function(pcategoryId) {
   // teknik guarding
   // http://seanmonstar.com/post/707078771/guard-and-default-operators
   // http://stackoverflow.com/questions/25758476/exception-in-template-helper-typeerror-cannot-read-property-profile-of-undef
-  var category = PostCategories.findOne(pcategoryId);
+  var category = PostCategories.findOne({_id: pcategoryId});
   var name = category && category.name;
   return name;
 });
@@ -328,7 +328,7 @@ $('#myModal').modal();
 
 function getTagNames(allTags) {
   return allTags.map(function(tagId) {
-    var tagName = Tags.findOne(tagId);
+    var tagName = Tags.findOne({_id: tagId});
     return tagName.tag;
   });
 }

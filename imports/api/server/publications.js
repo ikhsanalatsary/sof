@@ -98,4 +98,16 @@ if (Meteor.isServer) {
   Meteor.publish('editTags', function publications() {
     return Tags.find();
   });
+
+  Meteor.publish('postsByTag', function publications(tags) {
+    return Posts.find({
+      tags
+    });
+  });
+
+  Meteor.publish('postsByCategory', function publications(pcategoryId) {
+    return Posts.find({
+      pcategoryId
+    });
+  });
 }
