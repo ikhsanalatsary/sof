@@ -9,6 +9,7 @@ import '../../ui/main.js';
 import '../../ui/admin';
 
 Router.configure({
+  loadingTemplate: 'loadingTemplate',
   layoutTemplate: 'layout',
   yieldTemplates: {
     navbar: {to: 'navbar'},
@@ -28,6 +29,27 @@ Router.route('/', {
   },
 });
 
+Router.route('/posts', {
+  name: 'posts',
+  template: 'posts',
+  waitOn() {
+    return [
+      Meteor.subscribe('editPcategory'),
+      Meteor.subscribe('editPosts'),
+      Meteor.subscribe('editTags'),
+    ];
+  },
+  data() {
+    let templateData = {
+      posts: Posts.find({}, {sort: {createdAt: -1}}),
+      pcategories: PostCategories.find({}),
+      Tags: Tags.find({})
+    }
+    return templateData;
+  }
+});
+
+
 Router.route('/post/:_id', {
   name: 'post',
   template: 'post',
@@ -46,10 +68,12 @@ Router.route('/post/:_id', {
 
 Router.route('/post-tag/:tag', {
   name: 'postByTag',
+  template: 'posts',
   waitOn:function(){
     const tagObj = Tags.findOne({tag: this.params.tag});
     const tagId = tagObj && tagObj._id;
     return [
+      Meteor.subscribe('editPcategory'),
       Meteor.subscribe('editTags'),
       Meteor.subscribe('postsByTag', tagId)
     ];
@@ -57,28 +81,40 @@ Router.route('/post-tag/:tag', {
   data: function() {
     const tagObj = Tags.findOne({tag: this.params.tag});
     const tagId = tagObj && tagObj._id;
-    return Posts.find({
-      tags:tagId
-    });
+    let templateData = {
+      posts: Posts.find({
+        tags:tagId
+      }),
+      pcategories: PostCategories.find({}),
+      Tags: Tags.find({})
+    }
+    return templateData;
   }
 });
 
 Router.route('/post-category/:pcategory', {
   name: 'postByCategory',
+  template: 'posts',
   waitOn:function(){
     const pCategoryObj = PostCategories.findOne({name: this.params.pcategory});
     const pCategoryId = pCategoryObj && pCategoryObj._id;
     return [
       Meteor.subscribe('editPcategory'),
+      Meteor.subscribe('editTags'),
       Meteor.subscribe('postsByCategory', pCategoryId)
     ];
   },
   data: function() {
     const pCategoryObj = PostCategories.findOne({name: this.params.pcategory});
     const pcategoryId = pCategoryObj && pCategoryObj._id;
-    return Posts.find({
-      pcategoryId
-    });
+    let templateData = {
+      posts: Posts.find({
+        pcategoryId
+      }),
+      pcategories: PostCategories.find({}),
+      Tags: Tags.find({})
+    }
+    return templateData;
   }
 });
 

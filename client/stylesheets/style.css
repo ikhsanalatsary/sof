@@ -949,11 +949,42 @@ footer p {
   border-radius: 25px;
 }
 
+.view-blog {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+
+.view-blog .btn-read {
+  background: #80d6a3;
+  color: #fff;
+  border-radius: 25px;
+}
+
 /* =====================
    Blog Page
    ===================== */
 
+article.content {
+  margin-bottom: 20px;
+}
 
+article.content .btn-read {
+   background: #80d6a3;
+   color: #fff;
+   padding:10px 20px;
+   font-size: 13px;
+   margin-top: 15px;
+   border-radius: 25px;
+ }
+
+article.content header h1 a {
+  color: #333;
+}
+
+article.content header h1 a:hover {
+  color: #80d6a3;;
+}
 
 #blog-left{
   padding: 130px 0;

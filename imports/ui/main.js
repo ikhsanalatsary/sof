@@ -10,6 +10,7 @@ import './layout.html';
 import './navbar.html';
 import './login.html';
 import './home.html';
+import './posts.html';
 import './post.html';
 import './footer.html';
 

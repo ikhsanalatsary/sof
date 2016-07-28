@@ -286,12 +286,14 @@
                 <small>By {{getAuthor author}} / {{indoDate updatedAt}}</small>
                 {{{summary body}}}
                 <a href="/post/{{_id}}" class="btn btn-read">Read More</a>
-
               </div>
             </div>
           </div>
           {{/each}}
         </div>
+          <div class="view-blog col-md-6 col-md-offset-5">
+            <a href="{{pathFor route='posts'}}" class="btn btn-read">VIEW ALL</a>
+          </div>
       </div>
     </div>
   </div>
@@ -426,11 +428,11 @@
       </div>
       <div class="col-md-6">
         <form>
-                        <input type="text" class="form-control" placeholder="Name">
-                        <input type="text" class="form-control" placeholder="Email">
-                        <textarea class="form-control" rows="3" placeholder="Message"></textarea>
-                        <button class="btn btn-default" type="submit">SEND</button>
-                    </form>
+          <input type="text" class="form-control" placeholder="Name">
+          <input type="text" class="form-control" placeholder="Email">
+          <textarea class="form-control" rows="3" placeholder="Message"></textarea>
+          <button class="btn btn-default" type="submit">SEND</button>
+        </form>
       </div>
     </div>
   </div>
