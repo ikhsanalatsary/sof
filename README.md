@@ -5,7 +5,7 @@
 * ~~create pagination~~ - Done
 * ~~create side nav menu for admin only~~ - Done
 * ~~create seed data~~ - Done
-* show post to user
+* ~~show post to user~~ - Done
 * show project to user
 * infinite scroll for display post
 * create static page
