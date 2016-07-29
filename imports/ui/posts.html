@@ -12,31 +12,33 @@
 				</div>
 			</div>
 		</section>
-    
+
 		<section id="blog-left">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-0 col-sm-10 col-sm-offset-1">
-						<div class="block">
-              {{#each posts}}
-                <article class="content">
-                <header>
-                  <h1><a href="/post/{{_id}}">{{title}}</a></h1>
-                  <p>Published: By {{getAuthor author}} / <time pubdate="pubdate">{{indoDate createdAt}}</time></p>
-                </header>
-                {{{summary body}}}
-                <a href="/post/{{_id}}" class="btn btn-read">Read More</a>
-              </article>
-            {{/each}}
-							<!-- social media icon -->
-							<div class="media-link">
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-google-plus"></i></a>
-								<a href="#"><i class="fa fa-linkedin"></i></a>
-							</div>
-						</div>
-					</div>
+            <div id="show-post">
+              <div class="block">
+                {{#each posts}}
+                  <article class="content">
+                  <header>
+                    <h1><a href="/post/{{_id}}">{{title}}</a></h1>
+                    <p>Published: By {{getAuthor author}} / <time pubdate="pubdate">{{indoDate createdAt}}</time></p>
+                  </header>
+                  {{{summary body}}}
+                  <a href="/post/{{_id}}" class="btn btn-read">Read More</a>
+                  </article>
+                {{/each}}
+                <!-- social media icon -->
+                <div class="media-link">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                  <a href="#"><i class="fa fa-google-plus"></i></a>
+                  <a href="#"><i class="fa fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
 					<div class="col-md-3 col-md-offset-1 col-sm-4">
 						<div class="widget">
 							<form>

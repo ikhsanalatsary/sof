@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { $ } from 'meteor/jquery';
 import { FlashMessages } from 'meteor/mrt:flash-messages';
 
@@ -25,11 +25,54 @@ Template.registerHelper('getAuthor', function(authorId) {
 });
 
 Template.registerHelper('summary', function(body) {
-  return body = body.slice(0, -1000);
+  if (body.length > 1000) {
+    return body = body.slice(0, -1000);
+  }
+  return body;
 });
 
 Template.home.onCreated(function subscriptions() {
   return [Meteor.subscribe('editPosts'), Meteor.subscribe('editProjects')];
+});
+
+Template.posts.onCreated(function() {
+  let template = this;
+  this.autorun(function () {
+    template.limitPosts = new ReactiveDict();
+  });
+});
+
+Template.posts.onRendered(function() {
+  let template = this;
+  this.autorun(function () {
+    template.limitPosts.set('postsLimit', 10);
+    function showMoreVisible() {
+      var threshold, target = $("#show-post");
+      if (!target.length) return;
+
+      threshold = $(window).scrollTop() + $(window).height() - target.height();
+
+      if (target.offset().top < threshold) {
+        if (!target.data("visible")) {
+          // console.log("target became visible (inside viewable area)");
+          target.data("visible", true);
+          template.limitPosts.set('postsLimit', template.limitPosts.get('postsLimit') + 5);
+        }
+      } else {
+        if (target.data("visible")) {
+          // console.log("target became invisible (below viewable area)");
+          target.data("visible", false);
+        }
+      }
+    }
+    $(window).scroll(showMoreVisible);
+  });
+});
+
+Template.posts.helpers({
+  posts() {
+    return Posts.find({}, {sort: {createdAt: -1}, limit: Template.instance().limitPosts.get('postsLimit')})
+  }
 });
 
 Template.post.helpers({

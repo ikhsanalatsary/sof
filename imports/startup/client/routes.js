@@ -41,7 +41,6 @@ Router.route('/posts', {
   },
   data() {
     let templateData = {
-      posts: Posts.find({}, {sort: {createdAt: -1}}),
       pcategories: PostCategories.find({}),
       Tags: Tags.find({})
     }
@@ -79,12 +78,7 @@ Router.route('/post-tag/:tag', {
     ];
   },
   data: function() {
-    const tagObj = Tags.findOne({tag: this.params.tag});
-    const tagId = tagObj && tagObj._id;
     let templateData = {
-      posts: Posts.find({
-        tags:tagId
-      }),
       pcategories: PostCategories.find({}),
       Tags: Tags.find({})
     }
@@ -105,12 +99,7 @@ Router.route('/post-category/:pcategory', {
     ];
   },
   data: function() {
-    const pCategoryObj = PostCategories.findOne({name: this.params.pcategory});
-    const pcategoryId = pCategoryObj && pCategoryObj._id;
     let templateData = {
-      posts: Posts.find({
-        pcategoryId
-      }),
       pcategories: PostCategories.find({}),
       Tags: Tags.find({})
     }
