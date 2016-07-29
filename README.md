@@ -7,7 +7,7 @@
 * ~~create seed data~~ - Done
 * ~~show post to user~~ - Done
 * show project to user
-* infinite scroll for display post
+* ~~infinite scroll for display post~~ - Done
 * create static page
 * create user profile
 * ~~remove auto publish & insecure~~ - Done
